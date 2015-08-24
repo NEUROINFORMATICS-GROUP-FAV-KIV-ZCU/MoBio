@@ -138,19 +138,7 @@ angular.module('mobio.controllers', [])
                 return sum;
             }
 
-            var success = function (result) {
-                $scope.$apply(
-                        function () {
-                            $scope.data = result;
-                        }
-                );
-            };
-            var failure = function () {
-                alert("Error calling Hello Plugin");
-            };
-            //antplus.greet("World", success, failure);
-
-
+            
             //bluetoothSerial.list(success, failure);
             var foraMAC = '8C:DE:52:21:86:94';
             var MSG_START = 43;

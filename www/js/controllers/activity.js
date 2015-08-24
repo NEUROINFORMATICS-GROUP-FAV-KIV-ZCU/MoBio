@@ -1,6 +1,6 @@
 angular.module('mobio.controllers')
 
-        .controller('PlaylistCtrl', function ($scope, $stateParams, $timeout) {
+        .controller('ActivityCtrl', function ($scope, $stateParams, $timeout) {
 
             $scope.data = {
                 d: []

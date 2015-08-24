@@ -1,5 +1,5 @@
 
-angular.module('mobio', ['ionic', 'mobio.controllers'])
+angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'pascalprecht.translate'])
 
         .run(function ($ionicPlatform) {
             $ionicPlatform.ready(function () {
@@ -10,13 +10,13 @@ angular.module('mobio', ['ionic', 'mobio.controllers'])
                     cordova.plugins.Keyboard.disableScroll(true);
 
                 }
-                
+
                 setTimeout(function () {
                     if (navigator.splashscreen) {
                         navigator.splashscreen.hide();
                     }
                 }, 1000);
-                
+
                 if (window.StatusBar) {
                     // org.apache.cordova.statusbar required
                     StatusBar.styleDefault();
@@ -24,8 +24,28 @@ angular.module('mobio', ['ionic', 'mobio.controllers'])
             });
         })
 
-        .config(function ($stateProvider, $urlRouterProvider) {
+        .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, $translateProvider, i18n_en, i18n_cs) {
+
+            $ionicConfigProvider.tabs.position('bottom');
+            $ionicConfigProvider.backButton.text('').icon('ion-ios-arrow-back');
+            $ionicConfigProvider.backButton.previousTitleText(false);
+            $ionicConfigProvider.views.forwardCache(true);
+
+            $ionicConfigProvider.views.swipeBackEnabled(false);
+
+            $translateProvider.useSanitizeValueStrategy('escape');
+            $translateProvider.translations('en', i18n_en);
+            $translateProvider.translations('cs', i18n_cs);
+            $translateProvider.preferredLanguage('en');
+            $translateProvider.fallbackLanguage("en");
+
             $stateProvider
+
+                    .state('login', {
+                        url: '/login',
+                        templateUrl: 'templates/login.html',
+                        controller: 'LoginCtrl'
+                    })
 
                     .state('app', {
                         url: '/app',
@@ -34,42 +54,47 @@ angular.module('mobio', ['ionic', 'mobio.controllers'])
                         controller: 'AppCtrl'
                     })
 
-                    .state('app.search', {
-                        url: '/search',
+                    .state('app.activities', {
+                        url: '/activities',
                         views: {
                             'menuContent': {
-                                templateUrl: 'templates/search.html'
+                                templateUrl: 'templates/activities.html',
+                                controller: 'ActivitiesCtrl'
                             }
                         }
                     })
 
-                    .state('app.browse', {
-                        url: '/browse',
+                    .state('app.bp', {
+                        url: '/activity/bp',
                         views: {
                             'menuContent': {
-                                templateUrl: 'templates/browse.html'
-                            }
-                        }
-                    })
-                    .state('app.playlists', {
-                        url: '/playlists',
-                        views: {
-                            'menuContent': {
-                                templateUrl: 'templates/playlists.html',
-                                controller: 'PlaylistsCtrl'
+                                templateUrl: 'templates/bloodPressure/bp.html',
+                                controller: 'BloodPressureCtrl'
                             }
                         }
                     })
 
-                    .state('app.single', {
-                        url: '/playlists/:playlistId',
+                    .state('app.hr', {
+                        url: '/activity/hr',
                         views: {
                             'menuContent': {
-                                templateUrl: 'templates/playlist.html',
-                                controller: 'PlaylistCtrl'
+                                templateUrl: 'templates/heartRate/hr.html',
+                                controller: 'HeartRateCtrl'
                             }
                         }
                     });
+
+            /*.state('app.single', {
+             url: '/activity/:playlistId',
+             views: {
+             'menuContent': {
+             templateUrl: 'templates/activity.html',
+             controller: 'ActivityCtrl'
+             }
+             }
+             });*/
             // if none of the above states are matched, use this as the fallback
-            $urlRouterProvider.otherwise('/app/playlists');
+            $urlRouterProvider.otherwise('/app/activities');
         });
+
+angular.module('mobio.controllers', []);

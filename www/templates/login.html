@@ -1,25 +1,33 @@
-<ion-modal-view>
-  <ion-header-bar>
-    <h1 class="title">Login</h1>
-    <div class="buttons">
-      <button class="button button-clear" ng-click="closeLogin()">Close</button>
-    </div>
-  </ion-header-bar>
-  <ion-content>
-    <form ng-submit="doLogin()">
-      <div class="list">
-        <label class="item item-input">
-          <span class="input-label">Username</span>
-          <input type="text" ng-model="loginData.username">
-        </label>
-        <label class="item item-input">
-          <span class="input-label">Password</span>
-          <input type="password" ng-model="loginData.password">
-        </label>
-        <label class="item">
-          <button class="button button-block button-positive" type="submit">Log in</button>
-        </label>
-      </div>
-    </form>
-  </ion-content>
-</ion-modal-view>
+<ion-view view-title="Login" class="vertical-center">
+    <ion-content class="full-background" scroll="true" padding="true" scrollbar-y="false">
+        <div class="row main-logo-row">
+            <div class="col">
+                <h1 class="main-heading"><span>Mo</span><span>Bio</span></h1>
+            </div>
+        </div>
+        <div class="row" style="padding: 0 10%;">
+            <div class="col">
+                <!-- 
+                <label class="item item-input">
+                    <input type="text" placeholder="{{'USERNAME'| translate}}">
+                </label>
+               <label class="item item-input">
+                    <input type="password" placeholder="{{'PASSWORD'| translate}}">
+                </label>-->
+                <button class="button button-block button-balanced button-small">
+                    {{'CREATE_PROFILE'| translate}}
+                </button>   
+                <a class="button button-block button-positive button-small" ng-href="#/app/activities">
+                    {{'SELECT_PROFILE'| translate}}
+                </a> 
+                <button class="button button-block button-assertive button-small">
+                    {{'SETTINGS'| translate}}
+                </button> 
+            </div>
+        </div>
+
+        <div style="position: absolute; bottom: 0px; left: 10px; color: #333; font-size: 10px">0.1</div>
+
+    </ion-content>
+</ion-view>
+

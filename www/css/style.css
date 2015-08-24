@@ -1,1 +1,53 @@
-/* Empty. Add your own CSS if you like */
+body, .ionic-body {
+    font-family: "Segoe UI Semilight", "Helvetica Neue",  sans-serif !important; 
+}
+
+a {
+    text-decoration: none;
+}
+
+div.scroll.padding {
+    -webkit-transform: initial !important; 
+}
+
+.main-heading {
+    font-size: 60px;    
+    /*text-shadow:
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;  */
+}
+.main-heading span:first-child{
+    color: #333;
+}
+
+.main-heading span:last-child{
+    color: #0c63ee;
+}
+
+
+.main-logo-row {
+    position: absolute;
+    top: 30px;
+    width: 100%;
+    left: 0px;
+    padding: 8% 12%;
+}
+
+.responsive-img {
+    width: 100%;
+    height: auto;
+}
+
+.vertical-center .scroll-content {
+    display: table !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin-top: 0px !important;
+}
+.vertical-center .scroll {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
