@@ -1,5 +1,5 @@
 
-angular.module('mobio', ['ionic', 'ionic-material', 'mobio.controllers'])
+angular.module('mobio', ['ionic', 'mobio.controllers'])
 
         .run(function ($ionicPlatform) {
             $ionicPlatform.ready(function () {
