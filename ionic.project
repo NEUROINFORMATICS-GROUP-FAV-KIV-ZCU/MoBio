@@ -1,0 +1,8 @@
+{
+  "name": "MoBio",
+  "app_id": "",
+  "gulpStartupTasks": [
+    "index",
+    "watch"
+  ]
+}
