@@ -39,12 +39,6 @@
             },
             "AndroidManifest.xml": {
                 "parents": {
-                    "/*": [
-                        {
-                            "xml": "<uses-permission android:name=\"com.dsi.ant.permission.ANT\" />",
-                            "count": 1
-                        }
-                    ],
                     "/manifest": [
                         {
                             "xml": "<uses-permission android:name=\"android.permission.BLUETOOTH\" />",
@@ -54,6 +48,12 @@
                             "xml": "<uses-permission android:name=\"android.permission.BLUETOOTH_ADMIN\" />",
                             "count": 1
                         }
+                    ],
+                    "/*": [
+                        {
+                            "xml": "<uses-permission android:name=\"com.dsi.ant.permission.ANT\" />",
+                            "count": 1
+                        }
                     ]
                 }
             }
@@ -61,24 +61,24 @@
     },
     "installed_plugins": {
         "com.ionic.keyboard": {
-            "PACKAGE_NAME": "com.ionicframework.mobio228671"
-        },
-        "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.ionicframework.mobio228671"
-        },
-        "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.ionicframework.mobio228671"
-        },
-        "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "com.ionicframework.mobio228671"
-        },
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.ionicframework.mobio228671"
-        },
-        "cz.zcu.kiv.neuroinformatics.antplus": {
             "PACKAGE_NAME": "cz.zcu.kiv.neuroinformatics.mobio"
         },
         "com.megster.cordova.bluetoothserial": {
+            "PACKAGE_NAME": "cz.zcu.kiv.neuroinformatics.mobio"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "cz.zcu.kiv.neuroinformatics.mobio"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "cz.zcu.kiv.neuroinformatics.mobio"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "cz.zcu.kiv.neuroinformatics.mobio"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "cz.zcu.kiv.neuroinformatics.mobio"
+        },
+        "cz.zcu.kiv.neuroinformatics.antplus": {
             "PACKAGE_NAME": "cz.zcu.kiv.neuroinformatics.mobio"
         }
     },

@@ -1,86 +1,30 @@
 angular.module('mobio.controllers')
 
-        .controller('BloodPressureCtrl', function ($scope) {
+        .controller('BloodPressureCtrl', function ($scope, $timeout) {
             $scope.data = {
                 d: []
             };
             $scope.data2 = {
-                m: []
+                m: {}
             };
+            var lastDateIndex = "";
             $scope.data3 = {};
-            function pack(bytes) {
-                var chars = [];
-                for (var i = 0, n = bytes.length; i < n; ) {
-                    chars.push(((bytes[i++] & 0xff) << 8) | (bytes[i++] & 0xff));
-                }
-                return String.fromCharCode.apply(null, chars);
-            }
-
-            function unpackBytes(str) {
-                var bytes = [];
-                for (var i = 0, n = str.length; i < n; i++) {
-                    var char = str.charCodeAt(i);
-                    bytes.push(/*char >>> 8, */char & 0xFF);
-                }
-                return bytes;
-            }
-
-            /*! http://mths.be/codepointat v0.1.0 by @mathias */
-            if (!String.prototype.codePointAt) {
-                (function () {
-                    'use strict'; // needed to support `apply`/`call` with `undefined`/`null`
-                    var codePointAt = function (position) {
-                        if (this == null) {
-                            throw TypeError();
-                        }
-                        var string = String(this);
-                        var size = string.length;
-                        // `ToInteger`
-                        var index = position ? Number(position) : 0;
-                        if (index != index) { // better `isNaN`
-                            index = 0;
-                        }
-                        // Account for out-of-bounds indices:
-                        if (index < 0 || index >= size) {
-                            return undefined;
-                        }
-                        // Get the first code unit
-                        var first = string.charCodeAt(index);
-                        var second;
-                        if (// check if it’s the start of a surrogate pair
-                                first >= 0xD800 && first <= 0xDBFF && // high surrogate
-                                size > index + 1 // there is a next code unit
-                                ) {
-                            second = string.charCodeAt(index + 1);
-                            if (second >= 0xDC00 && second <= 0xDFFF) { // low surrogate
-                                // http://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae
-                                return (first - 0xD800) * 0x400 + second - 0xDC00 + 0x10000;
-                            }
-                        }
-                        return first;
-                    };
-                    if (Object.defineProperty) {
-                        Object.defineProperty(String.prototype, 'codePointAt', {
-                            'value': codePointAt,
-                            'configurable': true,
-                            'writable': true
-                        });
-                    } else {
-                        String.prototype.codePointAt = codePointAt;
-                    }
-                }());
-            }
-
-            function unpackBytes2(str) {
-                /*var bytes = [];
-                 for (var i = 0, n = str.length; i < n; i++) {
-                 var char = str.charCodeAt(i);
-                 bytes.push(char >>> 8, char & 0xFF);
-                 }*/
-                return str.split('').map(function (c) {
-                    return c.codePointAt(0);
-                });
-            }
+            /*function pack(bytes) {
+             var chars = [];
+             for (var i = 0, n = bytes.length; i < n; ) {
+             chars.push(((bytes[i++] & 0xff) << 8) | (bytes[i++] & 0xff));
+             }
+             return String.fromCharCode.apply(null, chars);
+             }
+             
+             function unpackBytes(str) {
+             var bytes = [];
+             for (var i = 0, n = str.length; i < n; i++) {
+             var char = str.charCodeAt(i);
+             bytes.push(char & 0xFF);
+             }
+             return bytes;
+             }*/
 
             function checkSum(message) {
                 var sum = 0;
@@ -110,18 +54,20 @@ angular.module('mobio.controllers')
                 );
                 bluetoothSerial.write(startMsg,
                         function (success) {
-                            $timeout(function () {
-                                bluetoothSerial.read(
-                                        function (result) {
-                                            //askForMeasurement(0, unpackBytes(result)[2], false);
-                                            askForDateTime(0, unpackBytes(result)[2], false);
-                                        }
-                                ,
-                                        function (failure) {
-                                            alert("read failure");
-                                        }
-                                );
-                            }, 500);
+                            //$timeout(function () {
+                            bluetoothSerial.subscribeRawData(
+                                    function (result) {
+                                        bluetoothSerial.unsubscribeRawData();
+                                        var data = new Uint8Array(result);
+                                        //askForMeasurement(0, data[2], false);
+                                        askForDateTime(0, data[2], false);
+                                    }
+                            ,
+                                    function (failure) {
+                                        alert("read failure");
+                                    }
+                            );
+                            //}, 500);
                         }
                 ,
                         function (failure) {
@@ -148,15 +94,13 @@ angular.module('mobio.controllers')
                 );
             };
             var readMeasurement = function (record, count, onlyLatest) {
-                bluetoothSerial.read(
+                bluetoothSerial.subscribeRawData(
                         function (result) {
-                            if (!result.length) {
-                                readMeasurement(record, count, onlyLatest);
-                                return false;
-                            }
+                            bluetoothSerial.unsubscribeRawData();
                             $scope.$apply(
                                     function () {
-                                        $scope.data2.m.push(unpackBytes(result));
+                                        //$scope.data2.m.push(new Uint8Array(result));
+                                        $scope.data2.m[lastDateIndex] = new Uint8Array(result);
                                     }
                             );
                             if (onlyLatest) {
@@ -166,14 +110,15 @@ angular.module('mobio.controllers')
 
                             if (record < count - 1) {
                                 record++;
-                                askForMeasurement(record, count, onlyLatest);
+                                //askForMeasurement(record, count, onlyLatest);
+                                askForDateTime(record, count, onlyLatest);
                             } else {
                                 closeConnection();
                             }
                         }
                 ,
                         function (failure) {
-                            alert("read failure");
+                            alert("subscribeRawData failure");
                         }
                 );
             };
@@ -200,43 +145,35 @@ angular.module('mobio.controllers')
                 );
             };
             var readDateTime = function (record, count, onlyLatest) {
-                bluetoothSerial.read(
+                bluetoothSerial.subscribeRawData(
                         function (result) {
-                            if (!result.length) {
-                                readDateTime(record, count, onlyLatest);
-                                return false;
-                            }
-                            $scope.$apply(
-                                    function () {
-                                        $scope.data2.m.push(getDateTime(unpackBytes2(result)).format());
-                                    }
-                            );
-                            if (onlyLatest) {
-                                closeConnection();
-                                return true;
-                            }
+                            bluetoothSerial.unsubscribeRawData();
+                            /*$scope.$apply(
+                             function () {
+                             $scope.data2.m.push(getDateTime(new Uint8Array(result)).format('YYYY-MM-DDTHH:mm:ss'));
+                             
+                             }
+                             );*/
+                            lastDateIndex = getDateTime(new Uint8Array(result)).format('YYYY-MM-DDTHH:mm:ss');
+                            askForMeasurement(record, count, onlyLatest);
 
-                            if (record < count - 1) {
-                                record++;
-                                askForDateTime(record, count, onlyLatest);
-                            } else {
-                                closeConnection();
-                            }
+                            /*if (onlyLatest) {
+                             closeConnection();
+                             return true;
+                             }
+                             
+                             if (record < count - 1) {
+                             record++;
+                             askForDateTime(record, count, onlyLatest);
+                             } else {
+                             closeConnection();
+                             }*/
                         }
                 ,
                         function (failure) {
-                            alert("read failure");
+                            alert("subscribeRawData failure");
                         }
                 );
-            };
-
-            byteArrayToLong = function (/*byte[]*/byteArray) {
-                var value = 0;
-                for (var i = byteArray.length - 1; i >= 0; i--) {
-                    value = (value * 256) + byteArray[i];
-                }
-
-                return value;
             };
 
             var getDateTime = function (byteArr) {
@@ -245,11 +182,10 @@ angular.module('mobio.controllers')
                 var day = 0xFF & 0x1F & byteArr[2];
                 var hour = 0x1F & byteArr[5]; //OK               
                 var minute = 0x3F & byteArr[4];
-                $scope.data.d.push(byteArr);// += "<br>" + year + "-" + month + "-" + day + "T" + hour + ":" + minute;
-                return moment().set({'year': year, 'month': month, 'day': day, 'hour': hour, 'minute': minute, 'second': 0, 'millisecond': 0});
+                return moment().set({'year': year, 'month': month - 1, 'date': day, 'hour': hour, 'minute': minute, 'second': 0, 'millisecond': 0});
             };
-            var closeConnection = function () {
 
+            var closeConnection = function () {
                 bluetoothSerial.write(endMsg, function (success) {
                 }, function (failure) {
                 });

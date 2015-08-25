@@ -38,6 +38,7 @@ public class BluetoothSerial extends CordovaPlugin {
     private static final String WRITE = "write";
     private static final String AVAILABLE = "available";
     private static final String READ = "read";
+    private static final String READ_BYTES = "readBytes";
     private static final String READ_UNTIL = "readUntil";
     private static final String SUBSCRIBE = "subscribe";
     private static final String UNSUBSCRIBE = "unsubscribe";
@@ -131,6 +132,10 @@ public class BluetoothSerial extends CordovaPlugin {
         } else if (action.equals(READ)) {
 
             callbackContext.success(read());
+        
+        } else if (action.equals(READ_BYTES)) {
+
+            callbackContext.success(readBytes());
 
         } else if (action.equals(READ_UNTIL)) {
 
@@ -337,6 +342,7 @@ public class BluetoothSerial extends CordovaPlugin {
             switch (msg.what) {
                 case MESSAGE_READ:
                     buffer.append((String) msg.obj);
+
                     if (dataAvailableCallback != null) {
                         sendDataToSubscriber();
                     }
@@ -428,6 +434,27 @@ public class BluetoothSerial extends CordovaPlugin {
         String data = buffer.substring(0, length);
         buffer.delete(0, length);
         return data;
+    }
+
+    private String readBytes() {
+        int length = buffer.length();
+        String data = buffer.substring(0, length);
+        buffer.delete(0, length);
+
+        String dataBytes = "";
+        byte[] byteArr = new byte[data.length()];
+        try {
+            byteArr = data.getBytes("ISO-8859-1");
+        } catch (UnsupportedEncodingException ex) {
+
+        }
+
+        for (int i = 0; i < data.length(); i++) {
+            dataBytes += byteArr[i] + "|";
+        }
+        dataBytes = dataBytes.substring(0, dataBytes.length() - 1);
+
+        return dataBytes;
     }
 
     private String readUntil(String c) {
