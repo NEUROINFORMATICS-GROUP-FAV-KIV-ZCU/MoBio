@@ -1,9 +1,27 @@
-<ion-view view-title="Heart Rate">
-  <ion-content>
-    {{data}}
-    <hr>
-    {{data2}}
-    <hr>
-    {{data3}}
-  </ion-content>
+<ion-view view-title="HR" cache-view="false">
+    <ion-nav-bar class="bar-positive" align-title="center">
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+        <ion-nav-buttons side="right">
+            <button class="button button-clear" ng-click="buttonClick()" ng-disabled="!data.discovered">
+                <span ng-show="!data.subscribed">Listen</span>
+                <span ng-show="data.subscribed">Stop</span>                
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content>
+        {{data.discovered}}
+        <hr>
+        {{data.heartRateData}}
+        <hr>
+        {{data.page4AddtData}}
+        <hr>
+        {{data.cumulativeOperatingTime}}
+        <hr>
+        {{data.manufacturerAndSerial}}
+        <hr>
+        {{data.versionAndModelEvent}}
+        <hr>
+        {{data.calculatedRrIntervalEvent}}
+    </ion-content>
 </ion-view>

@@ -39,18 +39,18 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cz.zcu.kiv.neuroinformatics.antplus": {
-        "source": {
-            "type": "local",
-            "path": "plugins_dev\\cordova-plugin-antplus"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "com.megster.cordova.bluetoothserial": {
         "source": {
             "type": "registry",
             "id": "com.megster.cordova.bluetoothserial"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cz.zcu.kiv.neuroinformatics.antplus": {
+        "source": {
+            "type": "local",
+            "path": "plugins_dev\\cordova-plugin-antplus"
         },
         "is_top_level": true,
         "variables": {}
