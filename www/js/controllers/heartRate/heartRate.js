@@ -5,13 +5,14 @@ angular.module('mobio.controllers')
 
             $scope.data = {
                 subscribed: false,
-                discovered: null,
+                discovered: [],
                 heartRateData: {},
                 page4AddtData: {},
                 cumulativeOperatingTime: {},
                 manufacturerAndSerial: {},
                 versionAndModelEvent: {},
-                calculatedRrIntervalEvent: {}
+                calculatedRrIntervalEvent: {},
+                deviceStateChange: {}
             };
 
             $scope.unsubscribeHR = function () {
@@ -40,13 +41,15 @@ angular.module('mobio.controllers')
                                                 $scope.data.versionAndModelEvent = readResult;
                                             } else if (readResult.event == "calculatedRrIntervalEvent") {
                                                 $scope.data.calculatedRrIntervalEvent = readResult;
+                                            } else if (readResult.event == "deviceStateChange") {
+                                                $scope.data.deviceStateChange = readResult;
                                             }
 
                                         });
                             }
                     ,
-                            function () {
-                                alert("Error read");
+                            function (error) {
+                                console.log(error);
                             });
                 } catch (e) {
                     console.log("antplus is not defined");
@@ -58,24 +61,32 @@ angular.module('mobio.controllers')
                 if ($scope.data.subscribed) {
                     $scope.unsubscribeHR();
                 } else {
-                    $scope.subscribeHR($scope.data.discovered.antDeviceNumber);
+                    $scope.subscribeHR($scope.data.discovered[0].antDeviceNumber);
                 }
                 $scope.data.subscribed = !$scope.data.subscribed;
             };
 
+            $scope.buttonStopSearchClick = function () {
+                antplus.stopSearchDevices(function (result) {
+                    console.log(result);
+                }, function (error) {
+                    console.log(error);
+                });
+            };
+
 
             try {
-                antplus.discover(
+                antplus.searchDevices(
                         function (result) {
                             $scope.$apply(
                                     function () {
-                                        $scope.data.discovered = result;
+                                        $scope.data.discovered.push(result);
                                     }
                             );
                         }
                 ,
-                        function () {
-                            alert("Error discover");
+                        function (error) {
+                            console.log(error);
                         });
             } catch (e) {
                 console.log("antplus is not defined");
