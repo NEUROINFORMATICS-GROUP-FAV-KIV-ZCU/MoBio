@@ -8,7 +8,6 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'pascalpr
                 if (window.cordova && window.cordova.plugins.Keyboard) {
                     cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
                     cordova.plugins.Keyboard.disableScroll(true);
-
                 }
 
                 setTimeout(function () {
@@ -16,7 +15,6 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'pascalpr
                         navigator.splashscreen.hide();
                     }
                 }, 1000);
-
                 if (window.StatusBar) {
                     // org.apache.cordova.statusbar required
                     StatusBar.styleDefault();
@@ -30,15 +28,12 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'pascalpr
             $ionicConfigProvider.backButton.text('').icon('ion-ios-arrow-back');
             $ionicConfigProvider.backButton.previousTitleText(false);
             $ionicConfigProvider.views.forwardCache(true);
-
             $ionicConfigProvider.views.swipeBackEnabled(false);
-
             $translateProvider.useSanitizeValueStrategy('escape');
             $translateProvider.translations('en', i18n_en);
             $translateProvider.translations('cs', i18n_cs);
             $translateProvider.preferredLanguage('en');
             $translateProvider.fallbackLanguage("en");
-
             $stateProvider
 
                     .state('login', {

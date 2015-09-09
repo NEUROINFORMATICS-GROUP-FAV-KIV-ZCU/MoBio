@@ -4,28 +4,65 @@
         <ion-nav-back-button>
         </ion-nav-back-button>
         <ion-nav-buttons side="right">
-            <button class="button button-clear" ng-click="buttonClick()" ng-disabled="!data.discovered[0]">
+            <button class="button button-clear" ng-click="buttonListenClick()" ng-disabled="!data.selectedDevice.antDeviceNumber">
                 <span ng-show="!data.subscribed">Listen</span>
                 <span ng-show="data.subscribed">Stop</span>                
             </button>
         </ion-nav-buttons>
     </ion-nav-bar>
-    <ion-content>
-        <button class="button button-assertive button-positive button-block button-small" ng-click="buttonStopSearchClick()">
-            Stop search
-        </button>
-        {{data.discovered}}
-        <hr>
-        {{data.heartRateData}}
-        <hr>
-        {{data.page4AddtData}}
-        <hr>
-        {{data.cumulativeOperatingTime}}
-        <hr>
-        {{data.manufacturerAndSerial}}
-        <hr>
-        {{data.versionAndModelEvent}}
-        <hr>
-        {{data.calculatedRrIntervalEvent}}
-    </ion-content>
+
+    <ion-tabs tabs-type="tabs-icon-only">
+        <ion-tab title="Device List" icon-on="ion-ios-search-strong" icon-off="ion-ios-search">
+            <ion-content class="padding" style="padding-top: 45px"> 
+                <button class="button button-calm button-block button-small" ng-show="spinner.show" ng-click="buttonStopSearchClick()">
+                    Stop search 
+                </button>    
+                <div class="row" ng-show="spinner.show">
+                    <div class="col text-center">
+                        <ion-spinner icon="android"></ion-spinner>
+                    </div>
+                </div>                
+                <div class="list">
+                    <label class="item item-radio" ng-repeat="dev in data.discovered">
+                        <input type="radio" name="group" ng-model="data.selectedDevice" ng-value="dev">
+                        <div class="item-content">
+                            {{dev.deviceDisplayName}} - {{dev.antDeviceType}}
+                        </div>
+                        <i class="radio-icon ion-checkmark"></i>
+                    </label>
+                </div>
+            </ion-content>
+        </ion-tab>
+
+        <ion-tab title="Heart Rate Monitor" icon-on="ion-arrow-graph-up-right" icon-off="ion-arrow-graph-up-right">
+            <ion-content style="padding-top: 50px" ng-init="drawLineChart()" scroll="false">
+
+                <div class="row" id="chartWrapperLiveHR" style="height: 250px; padding: 0; font-size: 10px">
+                    <div class="col text-center" style="padding: 0">
+                        <div id="chartLiveHR" class="chart"></div>
+                    </div>
+                </div>
+                <!--<button class="button button-calm button-block button-small" ng-click="testUpdateData()">test update</button>-->
+            </ion-content>
+        </ion-tab>
+
+        <ion-tab title="Statistics" icon-on="ion-ios-list-outline" icon-off="ion-ios-list-outline">
+            <ion-content class="padding" style="padding-top: 45px">
+
+
+                {{data.chartData}}
+                <hr>
+                {{data.cumulativeOperatingTime}}
+                <hr>
+                {{data.manufacturerAndSerial}}
+                <hr>
+                {{data.versionAndModelEvent}}
+                <hr>
+                {{data.calculatedRrIntervalEvent}}
+            </ion-content>
+        </ion-tab>
+    </ion-tabs>
+    <!--    <ion-content>
+            
+        </ion-content>-->
 </ion-view>
