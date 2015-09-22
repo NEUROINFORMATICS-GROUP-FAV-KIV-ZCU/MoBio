@@ -1,9 +1,75 @@
-<ion-view view-title="Blood Pressure" cache-view="false">
-    <ion-content>
-        <h4>Received</h4>
-        {{data2.m}}
-        <hr>
-        <h4>Sent</h4>
-        {{data3}}
-    </ion-content>
+<ion-view cache-view="false">
+    <ion-nav-bar class="bar-positive" align-title="center">
+        <ion-nav-title style="font-size: 12px">Blood Pressure</ion-nav-title>
+        <ion-nav-back-button>
+        </ion-nav-back-button>        
+    </ion-nav-bar>
+
+
+    <ion-tabs tabs-type="tabs-icon-only">
+        <ion-tab title="Device List" icon-on="ion-ios-search-strong" icon-off="ion-ios-search">
+            <ion-content class="padding" style="padding-top: 50px"> 
+                <button class="button button-calm button-block button-small" ng-show="spinner.show" ng-click="buttonStopSearchClick()">
+                    Stop search 
+                </button>    
+                <div class="row" ng-show="spinner.show">
+                    <div class="col text-center">
+                        <ion-spinner icon="android"></ion-spinner>
+                    </div>
+                </div>                
+                <div class="list">
+                    <label class="item item-radio" ng-repeat="dev in data.discovered">
+                        <input type="radio" name="group" ng-model="data.selectedDevice" ng-value="dev">
+                        <div class="item-content">
+                            {{dev.name}}
+                            <!--                            <br>{{dev.id}}
+                                                        <br>{{dev.class}}-->
+                        </div>
+                        <i class="radio-icon ion-checkmark"></i>
+                    </label>
+                </div>
+            </ion-content>
+        </ion-tab>
+
+        <ion-tab title="Heart Rate Monitor" icon-on="ion-ios-heart" icon-off="ion-ios-heart">
+            <ion-content style="padding-top: 50px" scroll="false">
+                <div class="row" style="height: 300px">
+                    <div class="col text-center">
+                        <tm8-donut donut-percentage="lastBPM"
+                                   donut-width="15" 
+                                   donut-text-y="8%" 
+                                   donut-class="donutBP"
+                                   wrapper-class="donutWrapperBP"
+                                   odometer-value="false"
+                                   static-content-url="templates/directives/bpm.html"
+                                   >                       
+                        </tm8-donut>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-center">
+                        <button class="button button-calm button-block button-small" ng-click="loadData(true)">
+                            Load Data
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="text-center">{{lastBPM}}</div>
+                
+            </ion-content>
+        </ion-tab>
+
+        <ion-tab title="Statistics" icon-on="ion-ios-list-outline" icon-off="ion-ios-list-outline">
+            <ion-content class="padding" style="padding-top: 45px">
+                <button class="button button-calm button-block button-small" ng-click="loadData(false)">
+                    Load Data
+                </button>
+                <h4>Received</h4>
+                {{data2.m}}
+                <hr>
+                <h4>Sent</h4>
+                {{data3}}
+            </ion-content>
+        </ion-tab>
+    </ion-tabs>
 </ion-view>

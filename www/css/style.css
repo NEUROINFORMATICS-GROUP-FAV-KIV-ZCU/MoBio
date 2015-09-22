@@ -96,3 +96,60 @@ div.scroll.padding {
 .dot:hover {
     stroke: rgba(68, 127, 255, 0.3);
 }
+
+/* donut  directive css */
+.donut-wrapper.circle-responsive {    
+    border-radius: 50%;
+    height: 0;
+    position: relative;
+
+    background: #fff;
+    width: 70%;
+    padding-bottom: 70%;    
+    left: 15%;
+    top: 25%;
+    -webkit-box-shadow:inset 0px 0px 0px 15px #c0c0c0;
+}
+
+.donut-wrapper .circle-responsive-shadow {
+    background: transparent;
+    border-radius: 50%;
+    height: 0;
+    padding-bottom: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+}
+
+.donut text {
+    font-size: 4rem;
+    fill: #000000;
+}
+
+.donut path.color0 {
+    fill: #00aeef;
+}
+
+.donut path.color1 {
+    fill: #c0c0c0;
+}
+
+.donut path.color0_green {
+    fill: #0ca500;
+}
+
+.donut path.color0_yellow {
+    fill: #ffea00;
+}
+
+.donut path.color0_orange {
+    fill: #ff890b;
+}
+
+.donut path.color0_red {
+    fill: #e60000;
+}
+
+/* donut  directive css  end */

@@ -1,5 +1,5 @@
 
-angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'pascalprecht.translate'])
+angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.directives', 'pascalprecht.translate'])
 
         .run(function ($ionicPlatform) {
             $ionicPlatform.ready(function () {
