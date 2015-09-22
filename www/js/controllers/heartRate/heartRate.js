@@ -82,7 +82,7 @@ angular.module('mobio.controllers')
             }
 
             $scope.spinner = {
-                show: true
+                show: false
             };
 
             $scope.unsubscribeHR = function () {
@@ -132,6 +132,8 @@ angular.module('mobio.controllers')
 
 
             $scope.buttonListenClick = function () {
+                $scope.data.heartRateData = [];
+                $scope.data.chartData = [{x: 0, y: 50}];
                 if ($scope.data.subscribed) {
                     $scope.unsubscribeHR();
                 } else {
@@ -149,24 +151,26 @@ angular.module('mobio.controllers')
                 });
             };
 
-
-            try {
-                antplus.searchDevices(
-                        function (result) {
-                            $scope.$apply(
-                                    function () {
-                                        $scope.data.discovered.push(result);
-                                    }
-                            );
-                        }
-                ,
-                        function (error) {
-                            console.log(error);
-                        });
-            } catch (e) {
-                console.log("antplus is not defined");
-            }
-
+            $scope.buttonStartSearchClick = function () {
+                $scope.data.discovered = [];
+                $scope.spinner.show = true;
+                try {
+                    antplus.searchDevices(
+                            function (result) {
+                                $scope.$apply(
+                                        function () {
+                                            $scope.data.discovered.push(result);
+                                        }
+                                );
+                            }
+                    ,
+                            function (error) {
+                                console.log(error);
+                            });
+                } catch (e) {
+                    console.log("antplus is not defined");
+                }
+            };
 
             //////////////// LINE CHART ///////////////////
 

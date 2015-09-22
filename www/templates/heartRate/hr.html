@@ -13,7 +13,10 @@
 
     <ion-tabs tabs-type="tabs-icon-only">
         <ion-tab title="Device List" icon-on="ion-ios-search-strong" icon-off="ion-ios-search">
-            <ion-content class="padding" style="padding-top: 45px"> 
+            <ion-content class="padding" style="padding-top: 45px">
+                <button class="button button-calm button-block button-small" ng-hide="spinner.show" ng-click="buttonStartSearchClick()">
+                    Start search 
+                </button>
                 <button class="button button-calm button-block button-small" ng-show="spinner.show" ng-click="buttonStopSearchClick()">
                     Stop search 
                 </button>    
