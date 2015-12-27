@@ -4,7 +4,6 @@ import org.apache.cordova.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-
 public class Antplus extends CordovaPlugin {
 
     private static final String SEARCH_DEVICES = "searchDevices";
@@ -12,8 +11,13 @@ public class Antplus extends CordovaPlugin {
     private static final String SUBSCRIBE_HR = "subscribeHR";
     private static final String UNSUBSCRIBE_HR = "unsubscribeHR";
 
+    private static final String SUBSCRIBE_WGT = "subscribeWGT";
+    private static final String REQUEST_BASIC_WGT = "requestBasicWGT";
+    private static final String REQUEST_ADVANCED_WGT = "requestAdvancedWGT";
+
     private AntplusMultiDeviceSearch antplusMultiDeviceSearch = null;
     private AntplusHeartRateService antplusHeartRateService = null;
+    private AntplusWeightScaleService antplusWeightScaleService = null;
 
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
@@ -26,6 +30,10 @@ public class Antplus extends CordovaPlugin {
         if (antplusHeartRateService == null) {
             antplusHeartRateService = new AntplusHeartRateService(cordova.getActivity().getApplicationContext());
         }
+
+        if (antplusWeightScaleService == null) {
+            antplusWeightScaleService = new AntplusWeightScaleService(cordova.getActivity().getApplicationContext());
+        }
     }
 
     @Override
@@ -36,7 +44,7 @@ public class Antplus extends CordovaPlugin {
                 public void run() {
                     antplusMultiDeviceSearch.startSearchDevices(callbackContext, "HEARTRATE");
                 }
-            });            
+            });
             return true;
         } else if (action.equals(STOP_SEARCH_DEVICES)) {
             cordova.getActivity().runOnUiThread(new Runnable() {
@@ -57,6 +65,33 @@ public class Antplus extends CordovaPlugin {
             cordova.getActivity().runOnUiThread(new Runnable() {
                 public void run() {
                     antplusHeartRateService.unsubscribe(callbackContext);
+                }
+            });
+            return true;
+        } else if (action.equals(SUBSCRIBE_WGT)) {
+            final int antDeviceNumber = data.getInt(0);
+            cordova.getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    antplusWeightScaleService.subscribe(antDeviceNumber, callbackContext);
+                }
+            });
+            return true;
+        } else if (action.equals(REQUEST_BASIC_WGT)) {
+            cordova.getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    antplusWeightScaleService.requestBasicMeasurement();
+                }
+            });
+            return true;
+        } else if (action.equals(REQUEST_ADVANCED_WGT)) {
+            final int age = data.getInt(0);
+            final int height = data.getInt(1);
+            final int gender = data.getInt(2);
+            final boolean athlete = data.getBoolean(3);
+            final int activityLevel = data.getInt(4);
+            cordova.getActivity().runOnUiThread(new Runnable() {                
+                public void run() {
+                    antplusWeightScaleService.requestAdvancedMeasurement(age, height, gender, athlete, activityLevel);
                 }
             });
             return true;
