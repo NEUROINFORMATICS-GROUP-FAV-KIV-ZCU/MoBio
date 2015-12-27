@@ -156,6 +156,7 @@ angular.module('mobio.controllers')
                 $scope.spinner.show = true;
                 try {
                     antplus.searchDevices(
+                            "HEARTRATE", //BLOOD_PRESSURE, WEIGHT_SCALE
                             function (result) {
                                 $scope.$apply(
                                         function () {
