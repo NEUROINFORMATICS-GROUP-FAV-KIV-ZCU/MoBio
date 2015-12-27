@@ -1,8 +1,8 @@
 /*global cordova, module*/
 
 module.exports = {
-    searchDevices: function (successCallback, errorCallback) {
-        cordova.exec(successCallback, errorCallback, "Antplus", "searchDevices", []);
+    searchDevices: function (deviceType, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "Antplus", "searchDevices", [deviceType]);
     },
     
     stopSearchDevices: function (successCallback, errorCallback) {

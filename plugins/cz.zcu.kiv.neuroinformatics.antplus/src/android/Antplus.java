@@ -39,10 +39,11 @@ public class Antplus extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray data, final CallbackContext callbackContext) throws JSONException {
 
-        if (action.equals(SEARCH_DEVICES)) {
+        if (action.equals(SEARCH_DEVICES)) { 
+            final String deviceType = data.getString(0);
             cordova.getActivity().runOnUiThread(new Runnable() {
                 public void run() {
-                    antplusMultiDeviceSearch.startSearchDevices(callbackContext, "HEARTRATE");
+                    antplusMultiDeviceSearch.startSearchDevices(callbackContext, deviceType);
                 }
             });
             return true;
