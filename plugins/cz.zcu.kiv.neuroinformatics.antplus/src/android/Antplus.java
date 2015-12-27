@@ -18,6 +18,7 @@ public class Antplus extends CordovaPlugin {
     private AntplusMultiDeviceSearch antplusMultiDeviceSearch = null;
     private AntplusHeartRateService antplusHeartRateService = null;
     private AntplusWeightScaleService antplusWeightScaleService = null;
+    private AntplusBloodPressureService antplusBloodPressureService = null;
 
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
@@ -33,6 +34,10 @@ public class Antplus extends CordovaPlugin {
 
         if (antplusWeightScaleService == null) {
             antplusWeightScaleService = new AntplusWeightScaleService(cordova.getActivity().getApplicationContext());
+        }
+        
+        if (antplusBloodPressureService == null) {
+            antplusBloodPressureService = new AntplusBloodPressureService(cordova.getActivity().getApplicationContext());
         }
     }
 
