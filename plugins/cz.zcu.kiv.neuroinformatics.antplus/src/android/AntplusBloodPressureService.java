@@ -104,7 +104,8 @@ public class AntplusBloodPressureService {
         this.callbackContext = callbackContext;
         destroy();
     }
-
+    
+    //
     public void stopDataMonitor() {
         if (bpPcc != null) {
             bpPcc.cancelDownloadMeasurementsMonitor();
@@ -122,7 +123,8 @@ public class AntplusBloodPressureService {
             sendResultError("bpPcc is null", 500);
         }
     }
-
+    
+    //
     public void getAntFsMfgID() {
         if (bpPcc != null) {
             bpPcc.cancelDownloadMeasurementsMonitor();
@@ -140,7 +142,8 @@ public class AntplusBloodPressureService {
             sendResultError("bpPcc is null", 500);
         }
     }
-
+    
+    //
     public void requestDownloadMeasurements(boolean onlyNew, boolean monitor) {
         boolean submitted = bpPcc.requestDownloadMeasurements(onlyNew, monitor,
                 new IDownloadMeasurementsStatusReceiver() {
@@ -250,7 +253,6 @@ public class AntplusBloodPressureService {
                     public void onMeasurementDownloaded(final BloodPressureMeasurement measurement) {
 
                         BloodPressureMesg fitBpmMesg = measurement.asBloodPressureFitMesg();
-
                         JSONObject r = new JSONObject();
                         try {
                             r.put("event", "bPMeasurementDownloaded");
@@ -437,7 +439,8 @@ public class AntplusBloodPressureService {
             sendResultError("Error Downloading Measurements: PCC already busy or dead.", 500);
         }
     }
-
+    
+    //
     public void requestResetDataAndSetTime(boolean doSetTime) {
         boolean submitted = bpPcc.requestResetDataAndSetTime(doSetTime, new IResetDataAndSetTimeFinishedReceiver() {
             @Override

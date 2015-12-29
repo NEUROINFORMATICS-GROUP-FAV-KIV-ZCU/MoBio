@@ -38,5 +38,29 @@ module.exports = {
                     userProfile.lifetimeAthlete,
                     userProfile.activityLevel
                 ]);
+    },
+    
+    subscribeBP: function (antDeviceNumber, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "Antplus", "subscribeBP", [antDeviceNumber]);
+    },
+    
+    unsubscribeBP: function (successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "Antplus", "unsubscribeBP", []);
+    },
+    
+    stopDataMonitorBP: function (successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "Antplus", "stopDataMonitorBP", []);
+    },
+    
+    getAntFsMfgIDBP: function (successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "Antplus", "getAntFsMfgIDBP", []);
+    },
+    
+    requestDownloadMeasurementsBP: function (onlyNew, monitor, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "Antplus", "requestDownloadMeasurementsBP", [onlyNew, monitor]);
+    },
+    
+    requestResetDataAndSetTimeBP: function (doSetTime, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "Antplus", "requestResetDataAndSetTimeBP", [doSetTime]);
     }
 };
