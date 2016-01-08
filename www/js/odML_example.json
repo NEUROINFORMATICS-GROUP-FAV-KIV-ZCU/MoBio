@@ -1,0 +1,48 @@
+{
+    "version": [
+        "1",
+        "42"
+    ],
+    "date": "1979-10-12",
+    "section": {
+        "definition": "Information on the crew",
+        "property": {
+            "definition": "List of crew members names",
+            "value": [
+                {
+                    "#text": "Arthur Philip Dent",
+                    "type": "person"
+                },
+                {
+                    "#text": "Zaphod Beeblebrox",
+                    "type": "person"
+                },
+                {
+                    "#text": "Tricia Marie McMillan",
+                    "type": "person"
+                },
+                {
+                    "#text": "Ford Prefect",
+                    "type": "person"
+                }
+            ],
+            "name": "NameCrewMembers"
+        },
+        "name": "TheCrew",
+        "section": {
+            "definition": "Information on Arthur Dent",
+            "property": {
+                "definition": "Sex of the subject",
+                "value": {
+                    "#text": "male",
+                    "type": "string"
+                },
+                "name": "Gender"
+            },
+            "name": "Arthur Philip Dent",
+            "type": "crew/person"
+        },
+        "type": "crew"
+    },
+    "author": "Douglas Adams"
+}
