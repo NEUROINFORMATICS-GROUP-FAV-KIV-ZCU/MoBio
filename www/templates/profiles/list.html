@@ -1,0 +1,24 @@
+<ion-view view-title="Profiles">
+    <ion-nav-bar class="bar-positive" align-title="center">
+       
+        <ion-nav-buttons side="left">
+            <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+            </button>
+        </ion-nav-buttons>
+        
+        <ion-nav-buttons side="right">
+            <a class="button button-icon button-clear ion-person-add" ng-href="#/profiles/new">
+            </a>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content>
+        profile list
+        <div class="list">
+
+            <a class="item item-thumbnail-left" ng-repeat="profile in profiles" href="#/app/activities">
+
+            </a>
+        </div>
+
+    </ion-content>
+</ion-view>

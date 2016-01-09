@@ -1,6 +1,6 @@
 angular.module('mobio.controllers')
 
-        .controller('LoginCtrl', function ($scope) {
+        .controller('HomeCtrl', function ($scope) {
             
         });
 

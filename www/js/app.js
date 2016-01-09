@@ -36,10 +36,16 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
             $translateProvider.fallbackLanguage("en");
             $stateProvider
 
-                    .state('login', {
-                        url: '/login',
-                        templateUrl: 'templates/login.html',
-                        controller: 'LoginCtrl'
+                    .state('home', {
+                        url: '/home',
+                        templateUrl: 'templates/home.html',
+                        controller: 'HomeCtrl'
+                    })
+                    
+                    .state('settings', {
+                        url: '/settings',
+                        templateUrl: 'templates/settings.html',
+                        //controller: 'SettingsCtrl'
                     })
 
                     .state('app', {
@@ -77,7 +83,37 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
                                 controller: 'HeartRateCtrl'
                             }
                         }
-                    });
+                    })
+
+                    .state('profiles', {
+                        url: "/profiles",
+                        abstract: true,
+                        templateUrl: "templates/menu.html"
+                    })
+                    
+                    .state('profiles.new', {
+                        url: '/new',
+                        views: {
+                            'menuContent': {
+                                templateUrl: 'templates/profiles/new.html',
+                                //controller: 'LiveDashboardCtrl'
+                            }
+                        }
+                    })
+                    
+                    .state('profiles.list', {
+                        url: '/list',
+                        views: {
+                            'menuContent': {
+                                templateUrl: 'templates/profiles/list.html',
+                                //controller: 'LiveDashboardCtrl'
+                            }
+                        }
+                    })
+                    
+                    
+
+                    ;
 
             /*.state('app.single', {
              url: '/activity/:playlistId',
@@ -89,7 +125,7 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
              }
              });*/
             // if none of the above states are matched, use this as the fallback
-            $urlRouterProvider.otherwise('/app/activities');
+            $urlRouterProvider.otherwise('/home');
         });
 
 angular.module('mobio.controllers', []);
