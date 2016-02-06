@@ -84,6 +84,16 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
                             }
                         }
                     })
+                    
+                    .state('app.wgtant', {
+                        url: '/activity/wgtant',
+                        views: {
+                            'menuContent': {
+                                templateUrl: 'templates/weightScale/wgtant.html',
+                                controller: 'WeightScaleCtrl'
+                            }
+                        }
+                    })
 
                     .state('profiles', {
                         url: "/profiles",

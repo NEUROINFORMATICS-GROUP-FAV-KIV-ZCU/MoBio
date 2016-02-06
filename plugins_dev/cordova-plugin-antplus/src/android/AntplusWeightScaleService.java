@@ -188,7 +188,9 @@ public class AntplusWeightScaleService {
                     r.put("eventFlags", eventFlags);
                     r.put("estTimestamp", estTimestamp);
                     r.put("bodyWeightStatus", bodyWeightStatus.toString());
-                    r.put("bodyWeight", bodyWeight.toString());
+                    if (bodyWeightStatus == AntPlusWeightScalePcc.BodyWeightStatus.VALID) {
+                        r.put("bodyWeight", bodyWeight.toString());
+                    }
                 } catch (JSONException e) {
                     System.err.println(e.getMessage());
                 }
@@ -243,7 +245,7 @@ public class AntplusWeightScaleService {
                 if (checkRequestResult(status)) {
                     JSONObject r = new JSONObject();
                     try {
-                        r.put("event", "basicMeasurementData");
+                        r.put("event", "advancedMeasurementData");
                         r.put("eventFlags", eventFlags);
                         r.put("estTimestamp", estTimestamp);
                         r.put("status", status.toString());

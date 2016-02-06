@@ -70,7 +70,7 @@
         "com.megster.cordova.bluetoothserial": {
             "PACKAGE_NAME": "cz.zcu.kiv.neuroinformatics.mobio"
         },
-        "cordova-plugin-console": {
+        "cordova-plugin-ble-central": {
             "PACKAGE_NAME": "cz.zcu.kiv.neuroinformatics.mobio"
         },
         "cordova-plugin-device": {
@@ -80,9 +80,6 @@
             "PACKAGE_NAME": "cz.zcu.kiv.neuroinformatics.mobio"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "cz.zcu.kiv.neuroinformatics.mobio"
-        },
-        "cordova-plugin-ble-central": {
             "PACKAGE_NAME": "cz.zcu.kiv.neuroinformatics.mobio"
         },
         "cz.zcu.kiv.neuroinformatics.antplus": {

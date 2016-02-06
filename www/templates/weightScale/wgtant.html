@@ -1,0 +1,80 @@
+<ion-view cache-view="false">
+    <ion-nav-bar class="bar-positive" align-title="center">
+        <ion-nav-title style="font-size: 12px">{{data.deviceStateChange.state|| "Weight Scale"}}</ion-nav-title>
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+        <ion-nav-buttons side="right">
+            <button class="button button-clear" ng-click="buttonListenClick()" ng-disabled="!data.selectedDevice.antDeviceNumber">
+                <span ng-show="!data.subscribed">Listen</span>
+                <span ng-show="data.subscribed">Stop</span>                
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-tabs tabs-type="tabs-icon-only">
+        <ion-tab title="Device List" icon-on="ion-ios-search-strong" icon-off="ion-ios-search">
+            <ion-content class="padding" style="padding-top: 45px">
+                <button class="button button-calm button-block button-small" ng-hide="spinner.show" ng-click="buttonStartSearchClick()">
+                    Start search 
+                </button>
+                <button class="button button-calm button-block button-small" ng-show="spinner.show" ng-click="buttonStopSearchClick()">
+                    Stop search 
+                </button>    
+                <div class="row" ng-show="spinner.show">
+                    <div class="col text-center">
+                        <ion-spinner icon="android"></ion-spinner>
+                    </div>
+                </div>                
+                <div class="list">
+                    <label class="item item-radio" ng-repeat="dev in data.discovered">
+                        <input type="radio" name="group" ng-model="data.selectedDevice" ng-value="dev">
+                        <div class="item-content">
+                            {{dev.deviceDisplayName}} - {{dev.antDeviceType}}
+                        </div>
+                        <i class="radio-icon ion-checkmark"></i>
+                    </label>
+                </div>
+            </ion-content>
+        </ion-tab>
+
+        <ion-tab title="Weight Scale" icon-on="ion-arrow-graph-up-right" icon-off="ion-arrow-graph-up-right">
+            <ion-content style="padding-top: 50px" scroll="true">
+
+                <div class="row">
+                    <div class="col">
+                        <div class="button-bar">
+                            <a class="button button-small button-calm" ng-click="requestBasicWGT()">Basic Measurement</a>
+                            <a class="button button-small button-balanced" ng-click="requestAdvancedWGT()">Advanced Measurement</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col">
+                        <p>Basic Measurement Data</p>
+                        <p>{{data.basicMeasurementData}}</p>
+                        <p>Advanced Measurement Data</p>
+                        <p>{{data.advancedMeasurementData}}</p>
+                        <p>Error Log</p>
+                        <p>{{data.error}}</p>
+                    </div>
+                </div>
+            </ion-content>
+        </ion-tab>
+
+        <ion-tab title="Statistics" icon-on="ion-ios-list-outline" icon-off="ion-ios-list-outline">
+            <ion-content class="padding" style="padding-top: 45px">
+                {{data.bodyWeightBroadcastData}}
+                <hr>
+                {{data.manufacturerIdentificationData}}
+                <hr>
+                {{data.productInformationData}}
+                <hr>
+                {{data.deviceStateChange}}
+            </ion-content>
+        </ion-tab>
+    </ion-tabs>
+    <!--    <ion-content>
+            
+        </ion-content>-->
+</ion-view>
