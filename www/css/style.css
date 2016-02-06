@@ -153,3 +153,9 @@ div.scroll.padding {
 }
 
 /* donut  directive css  end */
+
+
+.wrapping-list .item-content, .wrapping-list .item, .wrapping-list .item p{
+    overflow: initial;
+    white-space: initial;
+}

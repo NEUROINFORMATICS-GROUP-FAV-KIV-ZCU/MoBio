@@ -1,10 +1,10 @@
 <ion-view view-title="Activities">
     <ion-content>
 
-        <div class="list">
+        <div class="list wrapping-list">
 
             <a class="item item-thumbnail-left" ng-repeat="activity in activities" href="#/app/activity/{{activity.id}}">
-                <img ng-src="img/{{activity.protocol}}.png">
+                <img ng-src="img/{{activity.img}}">
                 <h2>{{activity.title}}</h2>
                 <p>{{activity.desc}}</p>
             </a>
