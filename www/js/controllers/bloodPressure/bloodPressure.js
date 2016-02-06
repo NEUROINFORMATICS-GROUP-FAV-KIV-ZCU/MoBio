@@ -27,18 +27,32 @@ angular.module('mobio.controllers')
                 return sum;
             }
 
-            bluetoothSerial.enable(function () {
-                bluetoothSerial.list(function (result) {
-                    $scope.$apply(
-                            function () {
-                                $scope.data.discovered = result;
-                            }
-                    );
-                }, function (failure) {
-                });
-            }, function () {
-            });
-
+            bluetoothSerial.isEnabled(
+                    function () {
+                        bluetoothSerial.list(function (result) {
+                            $scope.$apply(
+                                    function () {
+                                        $scope.data.discovered = result;
+                                    }
+                            );
+                        }, function (failure) {
+                        });
+                    },
+                    function () {
+                        bluetoothSerial.enable(function () {
+                            bluetoothSerial.list(function (result) {
+                                $scope.$apply(
+                                        function () {
+                                            $scope.data.discovered = result;
+                                        }
+                                );
+                            }, function (failure) {
+                            });
+                        }, function () {
+                        });
+                    }
+            );
+           
             $scope.loadData = function (onlyLatest) {
 
                 //bluetoothSerial.list(success, failure);
@@ -56,6 +70,7 @@ angular.module('mobio.controllers')
                     alert('Device not selected.');
                     return false;
                 }
+
                 bluetoothSerial.connect(id, function (result) {
                     bluetoothSerial.write(startMsg,
                             function (success) {
