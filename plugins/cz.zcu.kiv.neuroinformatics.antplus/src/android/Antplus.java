@@ -23,11 +23,15 @@ public class Antplus extends CordovaPlugin {
     private static final String GET_ANT_FS_MFG_ID_BP = "getAntFsMfgIDBP";
     private static final String REQUEST_DOWNLOAD_MEASUREMENTS_BP = "requestDownloadMeasurementsBP";
     private static final String REQUEST_RESET_DATA_AND_SET_TIME_BP = "requestResetDataAndSetTimeBP";
+    
+    private static final String SUBSCRIBE_SDM = "subscribeSDM";
+    private static final String UNSUBSCRIBE_SDM = "unsubscribeSDM";
 
     private AntplusMultiDeviceSearch antplusMultiDeviceSearch = null;
     private AntplusHeartRateService antplusHeartRateService = null;
     private AntplusWeightScaleService antplusWeightScaleService = null;
     private AntplusBloodPressureService antplusBloodPressureService = null;
+    private AntplusStrideSDMService antplusStrideSDMService = null;
 
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
@@ -47,6 +51,10 @@ public class Antplus extends CordovaPlugin {
 
         if (antplusBloodPressureService == null) {
             antplusBloodPressureService = new AntplusBloodPressureService(cordova.getActivity().getApplicationContext());
+        }
+        
+        if (antplusStrideSDMService == null) {
+            antplusStrideSDMService = new AntplusStrideSDMService(cordova.getActivity().getApplicationContext());
         }
     }
 
@@ -160,6 +168,21 @@ public class Antplus extends CordovaPlugin {
             cordova.getActivity().runOnUiThread(new Runnable() {
                 public void run() {
                     antplusBloodPressureService.requestResetDataAndSetTime(doSetTime);
+                }
+            });
+            return true;
+        } else if (action.equals(SUBSCRIBE_SDM)) {
+            final int antDeviceNumber = data.getInt(0);
+            cordova.getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    antplusStrideSDMService.subscribe(antDeviceNumber, callbackContext);
+                }
+            });
+            return true;
+        } else if (action.equals(UNSUBSCRIBE_SDM)) {
+            cordova.getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    antplusStrideSDMService.unsubscribe(callbackContext);
                 }
             });
             return true;

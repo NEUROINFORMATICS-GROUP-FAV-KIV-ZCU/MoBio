@@ -220,7 +220,7 @@ public class AntplusWeightScaleService {
                     }
 
                     sendResultOK(r);
-            }
+                }
             }
         });
     }

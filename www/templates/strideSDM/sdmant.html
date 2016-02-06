@@ -1,0 +1,89 @@
+<ion-view cache-view="false">
+    <ion-nav-bar class="bar-positive" align-title="center">
+        <ion-nav-title style="font-size: 12px">{{data.deviceStateChange.state|| "Stride SDM"}}</ion-nav-title>
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+        <ion-nav-buttons side="right">
+            <button class="button button-clear" ng-click="buttonListenClick()" ng-disabled="!data.selectedDevice.antDeviceNumber">
+                <span ng-show="!data.subscribed">Listen</span>
+                <span ng-show="data.subscribed">Stop</span>                
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-tabs tabs-type="tabs-icon-only">
+        <ion-tab title="Device List" icon-on="ion-ios-search-strong" icon-off="ion-ios-search">
+            <ion-content class="padding" style="padding-top: 45px">
+                <button class="button button-calm button-block button-small" ng-hide="spinner.show" ng-click="buttonStartSearchClick()">
+                    Start search 
+                </button>
+                <button class="button button-calm button-block button-small" ng-show="spinner.show" ng-click="buttonStopSearchClick()">
+                    Stop search 
+                </button>    
+                <div class="row" ng-show="spinner.show">
+                    <div class="col text-center">
+                        <ion-spinner icon="android"></ion-spinner>
+                    </div>
+                </div>                
+                <div class="list">
+                    <label class="item item-radio" ng-repeat="dev in data.discovered">
+                        <input type="radio" name="group" ng-model="data.selectedDevice" ng-value="dev">
+                        <div class="item-content">
+                            {{dev.deviceDisplayName}} - {{dev.antDeviceType}}
+                        </div>
+                        <i class="radio-icon ion-checkmark"></i>
+                    </label>
+                </div>
+            </ion-content>
+        </ion-tab>
+
+        <ion-tab title="Stride SDM" icon-on="ion-arrow-graph-up-right" icon-off="ion-arrow-graph-up-right">
+            <ion-content style="padding-top: 50px" scroll="true">
+
+            </ion-content>
+        </ion-tab>
+
+        <ion-tab title="Statistics" icon-on="ion-ios-list-outline" icon-off="ion-ios-list-outline">
+            <ion-content class="padding" style="padding-top: 45px">
+                Instantaneous Speed: {{data.instantaneousSpeedData.instantaneousSpeed}}
+                <br>
+                Instantaneous Cadence: {{data.instantaneousCadenceData.instantaneousCadence}}
+                <br>
+                Cumulative Distance: {{data.cumulativeDistanceData.cumulativeDistance}}
+                <br>
+                Cumulative Strides: {{data.strideCountData.cumulativeStrides}}                
+                <br>
+                Computation Timestamp: {{data.computationTimestampData.timestampOfLastComputation}}
+                <br>
+                Update Latency: {{data.latencyData.updateLatency}}
+                <br>
+                Sensor Location: {{data.sensorStatusData.sensorLocation}}
+                <br>
+                Battery Status: {{data.sensorStatusData.batteryStatus}}
+                <br>
+                Sensor Health: {{data.sensorStatusData.sensorHealth}}
+                <br>
+                Use State: {{data.sensorStatusData.useState}}
+                <br>
+                Cumulative Calories: {{data.calorieData.cumulativeCalories}}
+                <br>
+                Hardware Revision: {{data.manufacturerIdentificationData.hardwareRevision}}
+                <br>
+                Manufacturer ID: {{data.manufacturerIdentificationData.manufacturerID}}
+                <br>
+                Model Number: {{data.manufacturerIdentificationData.modelNumber}}                
+                <br>
+                Main Software Revision: {{data.productInformationData.mainSoftwareRevision}}
+                <br>
+                Supplemental Software Revision: {{data.productInformationData.supplementalSoftwareRevision}}
+                <br>
+                Serial Number: {{data.productInformationData.serialNumber}}
+                <br>
+                Manufacturer Specific Data: {{data.manufacturerSpecificData.hexString}}
+            </ion-content>
+        </ion-tab>
+    </ion-tabs>
+    <!--    <ion-content>
+            
+        </ion-content>-->
+</ion-view>

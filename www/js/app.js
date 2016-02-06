@@ -94,6 +94,16 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
                             }
                         }
                     })
+                    
+                    .state('app.sdmant', {
+                        url: '/activity/sdmant',
+                        views: {
+                            'menuContent': {
+                                templateUrl: 'templates/strideSDM/sdmant.html',
+                                controller: 'StrideSDMCtrl'
+                            }
+                        }
+                    })
 
                     .state('profiles', {
                         url: "/profiles",

@@ -62,5 +62,13 @@ module.exports = {
     
     requestResetDataAndSetTimeBP: function (doSetTime, successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "Antplus", "requestResetDataAndSetTimeBP", [doSetTime]);
+    },
+    
+    subscribeSDM: function (antDeviceNumber, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "Antplus", "subscribeSDM", [antDeviceNumber]);
+    },
+    
+    unsubscribeSDM: function (successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "Antplus", "unsubscribeSDM", []);
     }
 };
