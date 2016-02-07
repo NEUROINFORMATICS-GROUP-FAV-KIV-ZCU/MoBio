@@ -45,6 +45,8 @@
 
         <ion-tab title="Statistics" icon-on="ion-ios-list-outline" icon-off="ion-ios-list-outline">
             <ion-content class="padding" style="padding-top: 45px">
+                <textarea rows="20" cols="50">{{odMLData}}</textarea>
+                <hr>
                 Instantaneous Speed: {{data.instantaneousSpeedData.instantaneousSpeed}}
                 <br>
                 Instantaneous Cadence: {{data.instantaneousCadenceData.instantaneousCadence}}
@@ -54,8 +56,6 @@
                 Cumulative Strides: {{data.strideCountData.cumulativeStrides}}                
                 <br>
                 Computation Timestamp: {{data.computationTimestampData.timestampOfLastComputation}}
-                <br>
-                Update Latency: {{data.latencyData.updateLatency}}
                 <br>
                 Sensor Location: {{data.sensorStatusData.sensorLocation}}
                 <br>
