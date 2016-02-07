@@ -16,34 +16,9 @@ angular.module('mobio.controllers')
                 calculatedRrIntervalEvent: {},
                 deviceStateChange: {}
             };
-
-            $scope.testUpdateData = function () {
-                updateData();
-                //$scope.drawLineChart();
-            };
-
+          
             function updateData() {
-
-                // Scale the range of the data again 
-                /*x.domain(d3.extent(data, function (d) {
-                 return d.date;
-                 }));
-                 y.domain([0, d3.max(data, function (d) {
-                 return d.close;
-                 })]);*/
-
-                // Select the section we want to apply our changes to
-                //var svg = d3.select("body").transition();
-
                 var data = [
-//                    [
-//                        {'x': 0, 'y': 57},
-//                        {'x': 1, 'y': 60},
-//                        {'x': 2, 'y': 65},
-//                        {'x': 3, 'y': 66},
-//                        {'x': 4, 'y': 63},
-//                        {'x': 5, 'y': 55}
-//                    ]
                     $scope.data.chartData
                 ];
 
@@ -77,8 +52,6 @@ angular.module('mobio.controllers')
                         .y($scope.y)
                 //.scaleExtent([0, 10])
                 //.on("zoom", zoomed);
-
-
             }
 
             $scope.spinner = {
@@ -156,7 +129,7 @@ angular.module('mobio.controllers')
                 $scope.spinner.show = true;
                 try {
                     antplus.searchDevices(
-                            "HEARTRATE", //BLOOD_PRESSURE, WEIGHT_SCALE
+                            "HEARTRATE",
                             function (result) {
                                 $scope.$apply(
                                         function () {
@@ -185,14 +158,6 @@ angular.module('mobio.controllers')
                 //************************************************************
                 var data = [
                     $scope.data.chartData
-//                    [
-//                        {'x': 0, 'y': 57},
-//                        {'x': 1, 'y': 60},
-//                        {'x': 2, 'y': 165},
-//                        {'x': 3, 'y': 66},
-//                        {'x': 4, 'y': 63},
-//                        {'x': 5, 'y': 55}
-//                    ]
                 ];
 
 
@@ -207,14 +172,6 @@ angular.module('mobio.controllers')
                 var margin = {top: 20, right: 15, bottom: 30, left: 30};
                 $scope.width = w - margin.left - margin.right;
                 $scope.height = h - margin.top - margin.bottom;
-
-//                $scope.x = d3.scale.linear()
-//                        .domain([0, 12])
-//                        .range([0, $scope.width]);
-//
-//                $scope.y = d3.scale.linear()
-//                        .domain([-1, 16])
-//                        .range([$scope.height, 0]);
 
                 $scope.x = d3.scale.linear()
                         .domain([0, d3.max(data[0], function (d) {
@@ -249,10 +206,6 @@ angular.module('mobio.controllers')
                         .y($scope.y)
                         .scaleExtent([0, 10])
                         .on("zoom", zoomed);
-
-
-
-
 
                 //************************************************************
                 // Generate our SVG object
@@ -316,44 +269,6 @@ angular.module('mobio.controllers')
                         })
                         .attr("d", $scope.line);
 
-
-
-
-                //************************************************************
-                // Draw points on SVG object based on the data given
-                //************************************************************
-                /*var points = svg.selectAll('.dots')
-                 .data(data)
-                 .enter()
-                 .append("g")
-                 .attr("class", "dots")
-                 .attr("clip-path", "url(#clip)");
-                 
-                 points.selectAll('.dot')
-                 .data(function (d, index) {
-                 var a = [];
-                 d.forEach(function (point, i) {
-                 a.push({'index': index, 'point': point});
-                 });
-                 return a;
-                 })
-                 .enter()
-                 .append('circle')
-                 .attr('class', 'dot')
-                 .attr("r", 2.5)
-                 .attr('fill', function (d, i) {
-                 return colors[d.index % colors.length];
-                 })
-                 .attr("transform", function (d) {
-                 return "translate(" + x(d.point.x) + "," + y(d.point.y) + ")";
-                 }
-                 );
-                 */
-
-
-
-
-
                 //************************************************************
                 // Zoom specific updates
                 //************************************************************
@@ -361,16 +276,7 @@ angular.module('mobio.controllers')
                     $scope.svg.select(".x.axis").call($scope.xAxis);
                     $scope.svg.select(".y.axis").call($scope.yAxis);
                     $scope.svg.selectAll('path.line').attr('d', $scope.line);
-
-                    /*points.selectAll('circle').attr("transform", function (d) {
-                     return "translate(" + x(d.point.x) + "," + y(d.point.y) + ")";
-                     }
-                     );*/
                 }
-
-
-
-
 
                 $compile(document.getElementById("chartId"))($scope);
             };
