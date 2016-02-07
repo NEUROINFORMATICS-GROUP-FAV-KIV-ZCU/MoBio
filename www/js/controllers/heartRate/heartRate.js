@@ -103,12 +103,12 @@ angular.module('mobio.controllers')
             };
 
 
-            $scope.buttonListenClick = function () {
-                $scope.odMLData = odmlHeartRateAnt.getBasicObject();
+            $scope.buttonListenClick = function () {                
                 $scope.data.chartData = [{x: 0, y: 50}];
                 if ($scope.data.subscribed) {
                     $scope.unsubscribeHR();
                 } else {
+                    $scope.odMLData = odmlHeartRateAnt.getBasicObject();
                     $scope.subscribeHR($scope.data.selectedDevice.antDeviceNumber);
                 }
                 $scope.data.subscribed = !$scope.data.subscribed;
