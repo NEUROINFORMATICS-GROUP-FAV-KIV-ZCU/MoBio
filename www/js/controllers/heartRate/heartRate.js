@@ -1,21 +1,16 @@
 angular.module('mobio.controllers')
 
-        .controller('HeartRateCtrl', function ($scope, $timeout, $compile) {
+        .controller('HeartRateCtrl', function ($scope, $timeout, $compile, odmlHeartRateAnt) {
 
 
             $scope.data = {
                 subscribed: false,
                 discovered: [],
                 selectedDevice: {},
-                heartRateData: [],
                 chartData: [{x: 0, y: 50}],
-                page4AddtData: {},
-                cumulativeOperatingTime: {},
-                manufacturerAndSerial: {},
-                versionAndModelEvent: {},
-                calculatedRrIntervalEvent: {},
-                deviceStateChange: {}
             };
+            
+            $scope.odMLData = odmlHeartRateAnt.getBasicObject();
           
             function updateData() {
                 var data = [
@@ -73,21 +68,25 @@ angular.module('mobio.controllers')
                                 $scope.$apply(
                                         function () {
                                             if (readResult.event == "heartRateData") {
-                                                $scope.data.heartRateData.push(readResult);
-                                                if (readResult.heartBeatCount) {
-                                                    $scope.data.chartData[readResult.heartBeatCount] = {'x': readResult.heartBeatCount, 'y': readResult.heartRate};
-                                                    updateData();
+                                                $scope.odMLData = odmlHeartRateAnt.addHeartRateMeasurement($scope.odMLData, readResult);
+                                                if (readResult) {
+                                                    $scope.data.chartData.push({'x': readResult.heartBeatCount, 'y': readResult.heartRate});
+                                                    try {
+                                                        updateData();
+                                                    } catch (e) {
+                                                        console.log(e);
+                                                    }
                                                 }
                                             } else if (readResult.event == "page4AddtData") {
-                                                $scope.data.page4AddtData = readResult;
+                                                $scope.odMLData = odmlHeartRateAnt.addPage4AddtMeasurement($scope.odMLData, readResult);
                                             } else if (readResult.event == "cumulativeOperatingTime") {
-                                                $scope.data.cumulativeOperatingTime = readResult;
-                                            } else if (readResult.event == "manufacturerAndSerial") {
-                                                $scope.data.manufacturerAndSerial = readResult;
-                                            } else if (readResult.event == "versionAndModelEvent") {
-                                                $scope.data.versionAndModelEvent = readResult;
+                                                $scope.odMLData = odmlHeartRateAnt.addCumulativeOperatingTime($scope.odMLData, readResult);
+                                            } else if (readResult.event == "manufacturerAndSerial") { //static
+                                                $scope.odMLData = odmlHeartRateAnt.setManufacturerAndSerial($scope.odMLData, readResult);
+                                            } else if (readResult.event == "versionAndModelEvent") { //static
+                                                $scope.odMLData = odmlHeartRateAnt.setVersionAndModel($scope.odMLData, readResult);
                                             } else if (readResult.event == "calculatedRrIntervalEvent") {
-                                                $scope.data.calculatedRrIntervalEvent = readResult;
+                                                $scope.odMLData = odmlHeartRateAnt.addRrIntervalMeasurement($scope.odMLData, readResult);
                                             } else if (readResult.event == "deviceStateChange") {
                                                 $scope.data.deviceStateChange = readResult;
                                             }
@@ -96,7 +95,7 @@ angular.module('mobio.controllers')
                             }
                     ,
                             function (error) {
-                                console.log(error);
+                                console.log(JSON.stringify(error));
                             });
                 } catch (e) {
                     console.log("antplus is not defined");
@@ -105,7 +104,7 @@ angular.module('mobio.controllers')
 
 
             $scope.buttonListenClick = function () {
-                $scope.data.heartRateData = [];
+                $scope.odMLData = odmlHeartRateAnt.getBasicObject();
                 $scope.data.chartData = [{x: 0, y: 50}];
                 if ($scope.data.subscribed) {
                     $scope.unsubscribeHR();
