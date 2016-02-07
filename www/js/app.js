@@ -1,5 +1,5 @@
 
-angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.directives', 'pascalprecht.translate'])
+angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.directives', 'mobio.odML', 'pascalprecht.translate'])
 
         .run(function ($ionicPlatform) {
             $ionicPlatform.ready(function () {
@@ -149,3 +149,4 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
         });
 
 angular.module('mobio.controllers', []);
+angular.module('mobio.odML', []);

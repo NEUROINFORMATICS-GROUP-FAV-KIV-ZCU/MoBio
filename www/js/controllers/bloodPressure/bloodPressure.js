@@ -1,6 +1,6 @@
 angular.module('mobio.controllers')
 
-        .controller('BloodPressureCtrl', function ($scope, $timeout) {
+        .controller('BloodPressureCtrl', function ($scope, odmlBloodPressureFora) {
 
             $scope.lastBPM = 0;
             ///////////////// FOR TESTING ONLY /////////////////
@@ -13,7 +13,7 @@ angular.module('mobio.controllers')
                 selectedDevice: {}
             };
             $scope.data2 = {
-                m: {}
+                m: []
             };
 
             var lastDateIndex = "";
@@ -117,10 +117,18 @@ angular.module('mobio.controllers')
                                 $scope.$apply(
                                         function () {
                                             //$scope.data2.m.push(new Uint8Array(result));
-                                            $scope.data2.m[lastDateIndex] = new Uint8Array(result);
+                                            //$scope.data2.m[lastDateIndex] = new Uint8Array(result);
+                                            var rawData = new Uint8Array(result);
+                                            var data = odmlBloodPressureFora.getBasicObject();
+                                            data = odmlBloodPressureFora.setDate(data, lastDateIndex);
+                                            data = odmlBloodPressureFora.setSystolic(data, rawData[2]);
+                                            data = odmlBloodPressureFora.setMean(data, rawData[3]);
+                                            data = odmlBloodPressureFora.setDiastolic(data, rawData[4]);                                            
+                                            data = odmlBloodPressureFora.setHeartRate(data, rawData[5]);
+                                            $scope.data2.m.push(data);
 
                                             if (onlyLatest) {
-                                                $scope.lastBPM = $scope.data2.m[lastDateIndex][5];
+                                                $scope.lastBPM = odmlBloodPressureFora.getHeartRate(data);
                                             }
                                         }
                                 );
@@ -169,7 +177,7 @@ angular.module('mobio.controllers')
                     bluetoothSerial.subscribeRawData(
                             function (result) {
                                 bluetoothSerial.unsubscribeRawData();
-                                lastDateIndex = getDateTime(new Uint8Array(result)).format('YYYY-MM-DDTHH:mm:ss');
+                                lastDateIndex = getDateTime(new Uint8Array(result)).format();
                                 askForMeasurement(record, count, onlyLatest);
                             }
                     ,
