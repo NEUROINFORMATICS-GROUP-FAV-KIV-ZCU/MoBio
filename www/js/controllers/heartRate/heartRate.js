@@ -80,7 +80,7 @@ angular.module('mobio.controllers')
                                             } else if (readResult.event == "page4AddtData") {
                                                 $scope.odMLData = odmlHeartRateAnt.addPage4AddtMeasurement($scope.odMLData, readResult);
                                             } else if (readResult.event == "cumulativeOperatingTime") {
-                                                $scope.odMLData = odmlHeartRateAnt.addCumulativeOperatingTime($scope.odMLData, readResult);
+                                                $scope.odMLData = odmlHeartRateAnt.setCumulativeOperatingTime($scope.odMLData, readResult);
                                             } else if (readResult.event == "manufacturerAndSerial") { //static
                                                 $scope.odMLData = odmlHeartRateAnt.setManufacturerAndSerial($scope.odMLData, readResult);
                                             } else if (readResult.event == "versionAndModelEvent") { //static

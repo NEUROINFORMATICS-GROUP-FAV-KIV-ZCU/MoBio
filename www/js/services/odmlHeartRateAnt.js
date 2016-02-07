@@ -13,154 +13,31 @@ angular.module('mobio.odML')
                             "name": "Heart Rate Measurement",
                             "type": "heartRateMeasurement",
                             "section": [
-                                // push this object
-//                                {
-//                                    "name": "hr",
-//                                    "type": "hr",
-//                                    "property": [
-//                                        {
-//                                            "name": "timestamp",
-//                                            "value": {
-//                                                "type": "int",
-//                                                "content": 0
-//                                            }
-//                                        },
-//                                        {
-//                                            "name": "heartBeatCount",
-//                                            "value": {
-//                                                "type": "int",
-//                                                "content": 0
-//                                            }
-//                                        },
-//                                        {
-//                                            "name": "heartBeatEventTime",
-//                                            "value": {
-//                                                "type": "float",
-//                                                "content": 0
-//                                            }
-//                                        },
-//                                        {
-//                                            "name": "heartRate",
-//                                            "value": {
-//                                                "type": "int",
-//                                                "content": 0
-//                                            }
-//                                        }
-//                                    ]
-//                                }
-                                //push this object end
                             ]
                         },
                         {//1
                             "name": "Page4 Addt Measurement",
                             "type": "page4AddtMeasurement",
                             "section": [
-                                // push this object
-//                                {
-//                                    "name": "page4Addt",
-//                                    "type": "page4Addt",
-//                                    "property": [
-//                                        {
-//                                            "name": "timestamp",
-//                                            "value": {
-//                                                "type": "int",
-//                                                "content": 0
-//                                            }
-//                                        },
-//                                        {
-//                                            "name": "estTimestamp",
-//                                            "value": {
-//                                                "type": "int",
-//                                                "content": 0
-//                                            }
-//                                        },
-//                                        {
-//                                            "name": "previousHeartBeatEventTime",
-//                                            "value": {
-//                                                "type": "float",
-//                                                "content": 0
-//                                            }
-//                                        },
-//                                        {
-//                                            "name": "manufacturerSpecificByte",
-//                                            "value": {
-//                                                "type": "int",
-//                                                "content": 0
-//                                            }
-//                                        }
-//                                    ]
-//                                }
-                                //push this object end
                             ]
                         },
                         {//2
                             "name": "Cumulative Operating Time",
                             "type": "cumulativeOperatingTime",
-                            "section": [
-                                // push this object
-//                                {
-//                                    "name": "cor",
-//                                    "type": "cor",
-//                                    "property": [
-//                                        {
-//                                            "name": "timestamp",
-//                                            "value": {
-//                                                "type": "int",
-//                                                "content": 0
-//                                            }
-//                                        },
-//                                        {
-//                                            "name": "estTimestamp",
-//                                            "value": {
-//                                                "type": "int",
-//                                                "content": 0
-//                                            }
-//                                        },
-//                                        {
-//                                            "name": "cumulativeOperatingTime",
-//                                            "value": {
-//                                                "type": "int",
-//                                                "content": 0
-//                                            }
-//                                        }
-//                                    ]
-//                                }
-                                //push this object end
+                            "property": [
+                                {//0
+                                    "name": "cumulativeOperatingTime",
+                                    "value": {
+                                        "type": "int",
+                                        "content": 0
+                                    }
+                                }
                             ]
                         },
                         {//3
                             "name": "RR Interval Measurement",
                             "type": "rrIntervalMeasurement",
                             "section": [
-                                // push this object
-//                                {
-//                                    "name": "rr",
-//                                    "type": "rr",
-//                                    "property": [
-//                                        {
-//                                            "name": "timestamp",
-//                                            "value": {
-//                                                "type": "int",
-//                                                "content": 0
-//                                            }
-//                                        },
-//                                        {
-//                                            "name": "estTimestamp",
-//                                            "value": {
-//                                                "type": "int",
-//                                                "content": 0
-//                                            }
-//                                        },
-//                                        {
-//                                            "name": "rrInterval",
-//                                            "value": {
-//                                                "type": "int",
-//                                                "content": 0
-//                                            }
-//                                        }
-//                                    ]
-//                                }
-                                //push this object end
                             ]
                         },
                         {//4
@@ -327,36 +204,9 @@ angular.module('mobio.odML')
                     result.odML.section[1].section.push(toPush);
                     return result;
                 },
-                addCumulativeOperatingTime: function (data, measurement) {
-                    var toPush = {
-                        "name": "cor",
-                        "type": "cor",
-                        "property": [
-                            {
-                                "name": "timestamp",
-                                "value": {
-                                    "type": "int",
-                                    "content": measurement.timestamp
-                                }
-                            },
-                            {
-                                "name": "estTimestamp",
-                                "value": {
-                                    "type": "int",
-                                    "content": measurement.estTimestamp
-                                }
-                            },
-                            {
-                                "name": "cumulativeOperatingTime",
-                                "value": {
-                                    "type": "int",
-                                    "content": measurement.cumulativeOperatingTime
-                                }
-                            }
-                        ]
-                    };
+                setCumulativeOperatingTime: function (data, measurement) {                    
                     var result = data;
-                    result.odML.section[2].section.push(toPush);
+                    result.odML.section[2].property[0].value.content = measurement.cumulativeOperatingTime;
                     return result;
                 },
                 addRrIntervalMeasurement: function (data, measurement) {
