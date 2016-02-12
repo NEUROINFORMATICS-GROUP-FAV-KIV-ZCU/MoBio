@@ -251,8 +251,8 @@ public class AntplusWeightScaleService {
                         r.put("status", status.toString());
                         r.put("bodyWeight", measurement.bodyWeight.floatValue()); //kg
 
-                        r.put("hydrationPercentage", measurement.hydrationPercentage.intValue()); //%
-                        r.put("bodyFatPercentage", measurement.bodyFatPercentage.intValue()); //%
+                        r.put("hydrationPercentage", measurement.hydrationPercentage.floatValue()); //%
+                        r.put("bodyFatPercentage", measurement.bodyFatPercentage.floatValue()); //%
                         r.put("muscleMass", measurement.muscleMass.floatValue()); //kg
                         r.put("boneMass", measurement.boneMass.floatValue()); //kg
                         r.put("activeMetabolicRate", measurement.activeMetabolicRate.floatValue()); //kcal
