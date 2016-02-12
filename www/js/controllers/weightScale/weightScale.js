@@ -1,20 +1,23 @@
 angular.module('mobio.controllers')
 
-        .controller('WeightScaleCtrl', function ($scope, $timeout, $compile) {
+        .controller('WeightScaleCtrl', function ($scope, $timeout, $compile, odmlWGTAnt) {
 
 
             $scope.data = {
                 subscribed: false,
                 discovered: [],
                 selectedDevice: {},
+                //
                 basicMeasurementData: {},
                 advancedMeasurementData: {},
                 manufacturerIdentificationData: {},
                 productInformationData: {},
                 bodyWeightBroadcastData: {},
+                //
                 error: {}
             };
-
+            
+            $scope.odMLData = odmlWGTAnt.getBasicObject();
 
             $scope.spinner = {
                 show: false
@@ -35,17 +38,22 @@ angular.module('mobio.controllers')
                                 $scope.$apply(
                                         function () {
                                             if (readResult.event == "manufacturerIdentificationData") {
+                                                $scope.odMLData = odmlWGTAnt.setManufacturerIdentification($scope.odMLData, readResult);
                                                 $scope.data.manufacturerIdentificationData = readResult;
                                             } else if (readResult.event == "productInformationData") {
+                                                $scope.odMLData = odmlWGTAnt.setProductInformation($scope.odMLData, readResult);
                                                 $scope.data.productInformationData = readResult;
                                             } else if (readResult.event == "bodyWeightBroadcastData") {
+                                                $scope.odMLData = odmlWGTAnt.setBodyWeightBroadcast($scope.odMLData, readResult);
                                                 $scope.data.bodyWeightBroadcastData = readResult;
-                                            } else if (readResult.event == "deviceStateChange") {
-                                                $scope.data.deviceStateChange = readResult;
                                             } else if (readResult.event == "basicMeasurementData") {
+                                                $scope.odMLData = odmlWGTAnt.setBasicMeasurement($scope.odMLData, readResult);
                                                 $scope.data.basicMeasurementData = readResult;
                                             } else if (readResult.event == "advancedMeasurementData") {
+                                                $scope.odMLData = odmlWGTAnt.setAdvancedMeasurement($scope.odMLData, readResult);
                                                 $scope.data.advancedMeasurementData = readResult;
+                                            } else if (readResult.event == "deviceStateChange") {
+                                                $scope.data.deviceStateChange = readResult;
                                             }
                                         });
                             }
@@ -78,7 +86,7 @@ angular.module('mobio.controllers')
                     lifetimeAthlete: false,
                     activityLevel: 4
                 };
-
+                $scope.odMLData = odmlWGTAnt.setUserProfile($scope.odMLData, userProfileTest);
                 try {
                     antplus.requestAdvancedWGT(userProfileTest);
                 } catch (e) {
@@ -87,11 +95,10 @@ angular.module('mobio.controllers')
             };
 
             $scope.buttonListenClick = function () {
-                $scope.data.heartRateData = [];
-                $scope.data.chartData = [{x: 0, y: 50}];
                 if ($scope.data.subscribed) {
                     $scope.unsubscribeWGT();
                 } else {
+                    $scope.odMLData = odmlWGTAnt.getBasicObject();
                     $scope.subscribeWGT($scope.data.selectedDevice.antDeviceNumber);
                 }
                 $scope.data.subscribed = !$scope.data.subscribed;
