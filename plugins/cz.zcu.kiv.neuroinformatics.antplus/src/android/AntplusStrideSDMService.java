@@ -102,6 +102,7 @@ public class AntplusStrideSDMService {
                 try {
                     r.put("event", "instantaneousSpeedData");
                     r.put("eventFlags", eventFlags);
+                    r.put("estTimestamp", estTimestamp);
                     r.put("instantaneousSpeed", instantaneousSpeed);
                 } catch (JSONException e) {
                     System.err.println(e.getMessage());
