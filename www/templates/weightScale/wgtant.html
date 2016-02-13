@@ -11,7 +11,7 @@
         </ion-nav-buttons>
     </ion-nav-bar>
 
-    <ion-tabs tabs-type="tabs-icon-only">
+    <ion-tabs tabs-type="tabs-icon-only">       
         <ion-tab title="Device List" icon-on="ion-ios-search-strong" icon-off="ion-ios-search">
             <ion-content class="padding" style="padding-top: 45px">
                 <button class="button button-calm button-block button-small" ng-hide="spinner.show" ng-click="buttonStartSearchClick()">
@@ -37,18 +37,56 @@
             </ion-content>
         </ion-tab>
 
-        <ion-tab title="Weight Scale" icon-on="ion-arrow-graph-up-right" icon-off="ion-arrow-graph-up-right">
-            <ion-content style="padding-top: 50px" scroll="true">
+        <ion-tab title="Statistics" icon-on="ion-ios-list-outline" icon-off="ion-ios-list-outline">
+            <ion-content class="padding" style="padding-top: 45px">
 
                 <div class="row">
-                    <div class="col">
+                    <div class="col col-80"><h3>odML Data Checks</h3></div>
+                    <div class="col col-20 text-center">
+                        <ion-spinner icon="android" ng-if="data.subscribed"></ion-spinner>
+                    </div>
+                </div>
+                <ul class="list">                                            
+                    <li class="item-content" ng-repeat="section in odMLData.odML.section">
+                        <div class="row">
+                            <div class="col col-80">{{section.name}}</div>
+                            <div class="col col-20 text-center">
+                                <span class="icon ion-record text-center red" style="font-size: 24px" ng-if="section.property[0].value.content == 0 || section.property[0].value.content == ''"></span>
+                                <span class="icon ion-record text-center green" style="font-size: 24px" ng-if="section.property[0].value.content != 0 && section.property[0].value.content != ''"></span>
+                            </div>
+                        </div>
+                    </li>                   
+                </ul>
+
+                <div class="row">
+                    <div class="col">  
+                        <h4>Request Measurement</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">                        
                         <div class="button-bar">
-                            <a class="button button-small button-calm" ng-click="requestBasicWGT()">Basic Measurement</a>
-                            <a class="button button-small button-balanced" ng-click="requestAdvancedWGT()">Advanced Measurement</a>
+                            <a class="button button-small button-calm" ng-click="requestBasicWGT()" ng-disabled="data.deviceStateChange == 'TODO'">Basic</a>
+                            <a class="button button-small button-balanced" ng-click="requestAdvancedWGT()" ng-disabled="!data.deviceStateChange == 'TODO'">Advanced</a>
                         </div>
                     </div>
                 </div>
-                
+
+
+                <!--                <textarea rows="20" cols="50">{{odMLData}}</textarea>
+                                <hr>
+                                {{data.bodyWeightBroadcastData}}
+                                <hr>
+                                {{data.manufacturerIdentificationData}}
+                                <hr>
+                                {{data.productInformationData}}
+                                <hr>
+                                {{data.deviceStateChange}}-->
+            </ion-content>
+        </ion-tab>
+
+        <ion-tab title="Weight Scale" icon-on="ion-arrow-graph-up-right" icon-off="ion-arrow-graph-up-right">
+            <ion-content style="padding-top: 50px" scroll="true">                
                 <div class="row">
                     <div class="col">
                         <p>Basic Measurement Data</p>
@@ -59,20 +97,6 @@
                         <p>{{data.error}}</p>
                     </div>
                 </div>
-            </ion-content>
-        </ion-tab>
-
-        <ion-tab title="Statistics" icon-on="ion-ios-list-outline" icon-off="ion-ios-list-outline">
-            <ion-content class="padding" style="padding-top: 45px">
-                <textarea rows="20" cols="50">{{odMLData}}</textarea>
-                <hr>
-                {{data.bodyWeightBroadcastData}}
-                <hr>
-                {{data.manufacturerIdentificationData}}
-                <hr>
-                {{data.productInformationData}}
-                <hr>
-                {{data.deviceStateChange}}
             </ion-content>
         </ion-tab>
     </ion-tabs>

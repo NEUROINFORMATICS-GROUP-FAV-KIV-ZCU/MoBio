@@ -16,7 +16,7 @@ angular.module('mobio.controllers')
                 //
                 error: {}
             };
-            
+
             $scope.odMLData = odmlWGTAnt.getBasicObject();
 
             $scope.spinner = {

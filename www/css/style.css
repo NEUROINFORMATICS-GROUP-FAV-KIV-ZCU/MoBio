@@ -159,3 +159,15 @@ div.scroll.padding {
     overflow: initial;
     white-space: initial;
 }
+
+.red {
+    color: #e60000;
+}
+
+.amber {
+    color: #ff890b;
+}
+
+.green {
+    color: #0ca500;
+}
