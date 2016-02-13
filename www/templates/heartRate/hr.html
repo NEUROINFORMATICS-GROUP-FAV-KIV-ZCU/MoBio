@@ -11,7 +11,7 @@
         </ion-nav-buttons>
     </ion-nav-bar>
 
-    <ion-tabs tabs-type="tabs-icon-only">
+    <ion-tabs tabs-type="tabs-icon-only">       
         <ion-tab title="Device List" icon-on="ion-ios-search-strong" icon-off="ion-ios-search">
             <ion-content class="padding" style="padding-top: 45px">
                 <button class="button button-calm button-block button-small" ng-hide="spinner.show" ng-click="buttonStartSearchClick()">
@@ -36,6 +36,34 @@
                 </div>
             </ion-content>
         </ion-tab>
+        
+        <ion-tab title="Statistics" icon-on="ion-ios-list-outline" icon-off="ion-ios-list-outline">
+            <ion-content class="padding" style="padding-top: 45px">
+                <div class="row">
+                    <div class="col col-80"><h3>odML Data Checks</h3></div>
+                    <div class="col col-20 text-center">
+                        <ion-spinner icon="android" ng-if="data.subscribed"></ion-spinner>
+                    </div>
+                </div>
+                <ul class="list">                                            
+                    <li class="item-content" ng-repeat="section in odMLData.odML.section">
+                        <div class="row">
+                            <div class="col col-80">{{section.name}}</div>
+                            <div class="col col-20 text-center">
+                                <div ng-if="section.property">
+                                    <span class="icon ion-record text-center red" style="font-size: 24px" ng-if="section.property[0].value.content == 0 || section.property[0].value.content == ''"></span>
+                                    <span class="icon ion-record text-center green" style="font-size: 24px" ng-if="section.property[0].value.content != 0 && section.property[0].value.content != ''"></span>
+                                </div>
+                                <div ng-if="section.section">
+                                    <span class="icon ion-record text-center red" style="font-size: 24px" ng-if="section.section.length == 0"></span>
+                                    <span class="icon ion-record text-center green" style="font-size: 24px" ng-if="section.section.length > 0"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>                   
+                </ul>
+            </ion-content>
+        </ion-tab>
 
         <ion-tab title="Heart Rate Monitor" icon-on="ion-arrow-graph-up-right" icon-off="ion-arrow-graph-up-right">
             <ion-content style="padding-top: 50px" ng-init="drawLineChart()" scroll="false">
@@ -48,11 +76,6 @@
             </ion-content>
         </ion-tab>
 
-        <ion-tab title="Statistics" icon-on="ion-ios-list-outline" icon-off="ion-ios-list-outline">
-            <ion-content class="padding" style="padding-top: 45px">
-                <textarea rows="20" cols="50">{{odMLData}}</textarea>
-            </ion-content>
-        </ion-tab>
     </ion-tabs>
     <!--    <ion-content>
             
