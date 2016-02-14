@@ -86,7 +86,7 @@ angular.module('mobio.odML')
 
             return {
                 getBasicObject: function () {
-                    return odMLdataStructure;
+                    return JSON.parse(JSON.stringify(odMLdataStructure));
                 },
                 getDate: function (data) {
                     return data.odML.date;
