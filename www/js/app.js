@@ -135,15 +135,6 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
 
                     ;
 
-            /*.state('app.single', {
-             url: '/activity/:playlistId',
-             views: {
-             'menuContent': {
-             templateUrl: 'templates/activity.html',
-             controller: 'ActivityCtrl'
-             }
-             }
-             });*/
             // if none of the above states are matched, use this as the fallback
             $urlRouterProvider.otherwise('/home');
         });
