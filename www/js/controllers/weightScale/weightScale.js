@@ -99,7 +99,7 @@ angular.module('mobio.controllers')
                     $scope.unsubscribeWGT();
                 } else {
                     $scope.odMLData = odmlWGTAnt.getBasicObject();
-                    $scope.odMLData = odmlWGTAnt.setDate($scope.data.odMLData, moment().format());
+                    $scope.odMLData = odmlWGTAnt.setDate($scope.odMLData, moment().format());
                     $scope.subscribeWGT($scope.data.selectedDevice.antDeviceNumber);
                 }
                 $scope.data.subscribed = !$scope.data.subscribed;
