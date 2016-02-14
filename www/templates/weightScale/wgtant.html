@@ -1,6 +1,9 @@
 <ion-view cache-view="false">
     <ion-nav-bar class="bar-positive" align-title="center">
-        <ion-nav-title style="font-size: 12px">{{data.deviceStateChange.state|| "Weight Scale"}}</ion-nav-title>
+        <ion-nav-title style="font-size: 12px">
+            <span ng-if="data.deviceStateChange.name">{{(data.deviceStateChange.name + ': ' + data.deviceStateChange.state)}}</span>
+            <span ng-if="!data.deviceStateChange.name">Weight Scale</span>            
+        </ion-nav-title>
         <ion-nav-back-button>
         </ion-nav-back-button>
         <ion-nav-buttons side="right">
@@ -66,8 +69,8 @@
                 <div class="row">
                     <div class="col">                        
                         <div class="button-bar">
-                            <a class="button button-small button-calm" ng-click="requestBasicWGT()" ng-disabled="data.deviceStateChange == 'TODO'">Basic</a>
-                            <a class="button button-small button-balanced" ng-click="requestAdvancedWGT()" ng-disabled="!data.deviceStateChange == 'TODO'">Advanced</a>
+                            <a class="button button-small button-calm" ng-click="requestBasicWGT()" ng-disabled="!data.subscribed || data.deviceStateChange.state != 'TRACKING'">Basic</a>
+                            <a class="button button-small button-balanced" ng-click="requestAdvancedWGT()" ng-disabled="!data.subscribed || data.deviceStateChange.state != 'TRACKING'">Advanced</a>
                         </div>
                     </div>
                 </div>
@@ -95,6 +98,8 @@
                         <p>{{data.advancedMeasurementData}}</p>
                         <p>Error Log</p>
                         <p>{{data.error}}</p>
+                        <p>{{data.deviceStateChange}}</p>
+                        <p>{{data.deviceStateChange.state}}</p>
                     </div>
                 </div>
             </ion-content>

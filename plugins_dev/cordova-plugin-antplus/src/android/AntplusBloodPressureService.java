@@ -479,7 +479,8 @@ public class AntplusBloodPressureService {
             JSONObject r = new JSONObject();
             try {
                 r.put("event", "deviceStateChange");
-                r.put("state", bpPcc.getDeviceName() + ": " + newDeviceState);
+                r.put("name", bpPcc.getDeviceName());
+                r.put("state", newDeviceState);
             } catch (JSONException e) {
                 System.err.println(e.getMessage());
             }
@@ -499,7 +500,8 @@ public class AntplusBloodPressureService {
                     JSONObject r = new JSONObject();
                     try {
                         r.put("event", "deviceStateChange");
-                        r.put("state", result.getDeviceName() + ": " + initialDeviceState);
+                        r.put("name", result.getDeviceName());
+                        r.put("state", initialDeviceState);
                     } catch (JSONException e) {
                         System.err.println(e.getMessage());
                     }

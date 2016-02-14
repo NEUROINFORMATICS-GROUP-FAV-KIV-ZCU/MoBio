@@ -330,7 +330,8 @@ public class AntplusStrideSDMService {
             JSONObject r = new JSONObject();
             try {
                 r.put("event", "deviceStateChange");
-                r.put("state", sdmPcc.getDeviceName() + ": " + newDeviceState);
+                r.put("name", sdmPcc.getDeviceName());
+                r.put("state", newDeviceState);
             } catch (JSONException e) {
                 System.err.println(e.getMessage());
             }
@@ -350,7 +351,8 @@ public class AntplusStrideSDMService {
                             JSONObject r = new JSONObject();
                             try {
                                 r.put("event", "deviceStateChange");
-                                r.put("state", result.getDeviceName() + ": " + initialDeviceState);
+                                r.put("name", result.getDeviceName());
+                                r.put("state", initialDeviceState);
                             } catch (JSONException e) {
                                 System.err.println(e.getMessage());
                             }

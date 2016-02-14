@@ -1,6 +1,9 @@
 <ion-view cache-view="false">
     <ion-nav-bar class="bar-positive" align-title="center">
-        <ion-nav-title style="font-size: 12px">{{data.deviceStateChange.state|| "HR"}}</ion-nav-title>
+        <ion-nav-title style="font-size: 12px">
+            <span ng-if="data.deviceStateChange.name">{{(data.deviceStateChange.name + ': ' + data.deviceStateChange.state)}}</span>
+            <span ng-if="!data.deviceStateChange.name">Heart Rate</span>            
+        </ion-nav-title>
         <ion-nav-back-button>
         </ion-nav-back-button>
         <ion-nav-buttons side="right">
