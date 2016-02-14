@@ -1,6 +1,6 @@
 angular.module('mobio.controllers')
 
-        .controller('WeightScaleCtrl', function ($scope, $timeout, $compile, odmlWGTAnt) {
+        .controller('WeightScaleCtrl', function ($scope, $timeout, $compile, odmlWGTAnt, profileCache) {
 
 
             $scope.data = {
@@ -79,16 +79,10 @@ angular.module('mobio.controllers')
             };
 
             $scope.requestAdvancedWGT = function () {
-                var userProfileTest = {
-                    age: 26,
-                    height: 185,
-                    gender: 1,
-                    lifetimeAthlete: false,
-                    activityLevel: 4
-                };
-                $scope.odMLData = odmlWGTAnt.setUserProfile($scope.odMLData, userProfileTest);
+                var userProfile = profileCache.getSelectedProfile();
+                $scope.odMLData = odmlWGTAnt.setUserProfile($scope.odMLData, userProfile);
                 try {
-                    antplus.requestAdvancedWGT(userProfileTest);
+                    antplus.requestAdvancedWGT(userProfile);
                 } catch (e) {
                     console.log("antplus is not defined");
                 }

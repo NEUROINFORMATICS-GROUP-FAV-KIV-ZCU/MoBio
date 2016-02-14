@@ -8,9 +8,9 @@ angular.module('mobio.controllers')
                     email: "",
                     name: "",
                     surname: "",
-                    age: null,
+                    age: 26,
                     gender: 1,
-                    height: null,
+                    height: 185,
                     activityLevel: 3,
                     lifetimeAthlete: false
                 }
@@ -31,9 +31,9 @@ angular.module('mobio.controllers')
                             email: "",
                             name: "",
                             surname: "",
-                            age: null,
+                            age: 26,
                             gender: 1,
-                            height: null,
+                            height: 185,
                             activityLevel: 3,
                             lifetimeAthlete: false
                         };
