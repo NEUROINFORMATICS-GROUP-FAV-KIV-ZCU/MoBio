@@ -13,7 +13,7 @@ angular.module('mobio.controllers')
                 subscribed: false
             };
 
-            $scope.data.odMLData = odmlBloodPressureFora.getBasicObject();
+            $scope.odMLData = odmlBloodPressureFora.getBasicObject();
 
             var lastDateIndex = "";
 
@@ -61,20 +61,20 @@ angular.module('mobio.controllers')
             );
 
             $scope.resetData = function () {
-                $scope.data.odMLData = odmlBloodPressureFora.getBasicObject();
+                $scope.odMLData = odmlBloodPressureFora.getBasicObject();
                 $scope.data.lastBPM = 0;
             };
 
             $scope.loadData = function (onlyLatest) {
                 $scope.data.subscribed = true;
                 if (onlyLatest) {
-                    $scope.data.odMLData = odmlBloodPressureFora.resetBloodPressureLatest($scope.data.odMLData);
+                    $scope.odMLData = odmlBloodPressureFora.resetBloodPressureLatest($scope.odMLData);
                     $scope.data.lastBPM = 0;
                 } else {
-                    $scope.data.odMLData = odmlBloodPressureFora.resetBloodPressureMeasurement($scope.data.odMLData);
+                    $scope.odMLData = odmlBloodPressureFora.resetBloodPressureMeasurement($scope.odMLData);
                 }
-                $scope.data.odMLData = odmlBloodPressureFora.setDate($scope.data.odMLData, moment().format());
-                $scope.data.odMLData = odmlBloodPressureFora.setDeviceInfo($scope.data.odMLData, $scope.data.selectedDevice);
+                $scope.odMLData = odmlBloodPressureFora.setDate($scope.odMLData, moment().format());
+                $scope.odMLData = odmlBloodPressureFora.setDeviceInfo($scope.odMLData, $scope.data.selectedDevice);
                 var id = $scope.data.selectedDevice.id; //'8C:DE:52:21:86:94';
                 var MSG_START = 43;
                 var MSG_A = 37;
@@ -148,10 +148,10 @@ angular.module('mobio.controllers')
                                             };
                                            
                                             if (onlyLatest) {
-                                                $scope.data.odMLData = odmlBloodPressureFora.setBloodPressureLatest($scope.data.odMLData, lastDateIndex, dataToSet);
-                                                $scope.data.lastBPM = odmlBloodPressureFora.getLatestHeartRate($scope.data.odMLData);
+                                                $scope.odMLData = odmlBloodPressureFora.setBloodPressureLatest($scope.odMLData, lastDateIndex, dataToSet);
+                                                $scope.data.lastBPM = odmlBloodPressureFora.getLatestHeartRate($scope.odMLData);
                                             } else {
-                                                $scope.data.odMLData = odmlBloodPressureFora.addBloodPressureMeasurement($scope.data.odMLData, lastDateIndex, dataToSet);
+                                                $scope.odMLData = odmlBloodPressureFora.addBloodPressureMeasurement($scope.odMLData, lastDateIndex, dataToSet);
                                             }
                                         }
                                 );

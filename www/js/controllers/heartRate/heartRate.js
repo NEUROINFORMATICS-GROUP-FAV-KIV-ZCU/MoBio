@@ -109,7 +109,7 @@ angular.module('mobio.controllers')
                     $scope.unsubscribeHR();
                 } else {
                     $scope.odMLData = odmlHeartRateAnt.getBasicObject();
-                    $scope.data.odMLData = odmlHeartRateAnt.setDate($scope.data.odMLData, moment().format());
+                    $scope.odMLData = odmlHeartRateAnt.setDate($scope.data.odMLData, moment().format());
                     $scope.subscribeHR($scope.data.selectedDevice.antDeviceNumber);
                 }
                 $scope.data.subscribed = !$scope.data.subscribed;
