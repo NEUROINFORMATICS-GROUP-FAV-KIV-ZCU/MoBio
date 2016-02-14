@@ -1,7 +1,7 @@
 
-angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.directives', 'mobio.odML', 'pascalprecht.translate'])
+angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.directives', 'mobio.odML', 'mobio.cache', 'pascalprecht.translate'])
 
-        .run(function ($ionicPlatform) {
+        .run(function ($ionicPlatform, localCache) {
             $ionicPlatform.ready(function () {
                 // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
                 // for form inputs)
@@ -19,6 +19,9 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
                     // org.apache.cordova.statusbar required
                     StatusBar.styleDefault();
                 }
+                
+                localCache.initialize();
+                
             });
         })
 
@@ -108,7 +111,8 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
                     .state('profiles', {
                         url: "/profiles",
                         abstract: true,
-                        templateUrl: "templates/menu.html"
+                        templateUrl: "templates/menu.html",
+                        controller: 'AppCtrl'
                     })
                     
                     .state('profiles.new', {
@@ -116,7 +120,7 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
                         views: {
                             'menuContent': {
                                 templateUrl: 'templates/profiles/new.html',
-                                //controller: 'LiveDashboardCtrl'
+                                controller: 'ProfilesNewCtrl'
                             }
                         }
                     })
@@ -126,9 +130,9 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
                         views: {
                             'menuContent': {
                                 templateUrl: 'templates/profiles/list.html',
-                                //controller: 'LiveDashboardCtrl'
+                                controller: 'ProfilesListCtrl'
                             }
-                        }
+                        }                        
                     })
                     
                     
@@ -141,3 +145,4 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
 
 angular.module('mobio.controllers', []);
 angular.module('mobio.odML', []);
+angular.module('mobio.cache', []);

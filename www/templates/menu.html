@@ -14,16 +14,19 @@
 
     <ion-side-menu side="left">
         <ion-header-bar class="bar-positive">
-            <h1 class="title">profile name</h1>
+            <h1 class="title">Profile: {{getSelectedProfile().profileName}}</h1>
         </ion-header-bar>
         <ion-content>
             <ion-list>        
                 <ion-item menu-close href="#/profiles/list">
                     Profiles
                 </ion-item>
-                <ion-item menu-close href="#/app/activities">
-                    Activities
+                <ion-item menu-close href="#/app/activities" ng-if="global.selectedProfile">
+                   Activities
                 </ion-item>
+                <ion-item nav-clear href="" class="disabled" ng-if="!global.selectedProfile">
+                    Activities
+                </ion-item>                
                 <ion-item menu-close href="#/home">
                     Home
                 </ion-item>

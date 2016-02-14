@@ -1,24 +1,27 @@
-<ion-view view-title="Profiles">
+<ion-view view-title="Profiles" cache-view="true">
     <ion-nav-bar class="bar-positive" align-title="center">
-       
+
         <ion-nav-buttons side="left">
             <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
             </button>
         </ion-nav-buttons>
-        
+
         <ion-nav-buttons side="right">
             <a class="button button-icon button-clear ion-person-add" ng-href="#/profiles/new">
             </a>
         </ion-nav-buttons>
     </ion-nav-bar>
-    <ion-content>
-        profile list
-        <div class="list">
-
-            <a class="item item-thumbnail-left" ng-repeat="profile in profiles" href="#/app/activities">
-
-            </a>
+    <ion-content scroll="true">
+        <div class="row">                    
+            <div class="col">
+                <h3>Stored Profiles</h3>
+                <button class="button button-full button-positive button-outline button-small" ng-repeat="profile in global.profileList" ng-click="setSelectedProfile(profile)">
+                    {{profile.profileName}}
+                </button>
+            </div>
         </div>
-
     </ion-content>
+    <div class="bar bar-footer bar-positive">
+        Selected: {{getSelectedProfile().profileName}}
+    </div>;
 </ion-view>

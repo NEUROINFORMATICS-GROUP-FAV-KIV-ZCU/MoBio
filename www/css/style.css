@@ -171,3 +171,7 @@ div.scroll.padding {
 .green {
     color: #0ca500;
 }
+
+.disabled a{
+    background-color: #D9D9D9 !important;
+}

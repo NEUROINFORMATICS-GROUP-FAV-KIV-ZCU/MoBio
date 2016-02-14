@@ -13,48 +13,48 @@
         <div class="list">
             <label class="item item-input item-floating-label">
                 <span class="input-label">Profile Name</span>
-                <input type="text" placeholder="Profile Name" ng-value="">
+                <input type="text" placeholder="Profile Name" ng-model="data.newProfile.profileName">
             </label>
             <label class="item item-input item-floating-label">
                 <span class="input-label">Email</span>
-                <input type="email" placeholder="Email" ng-value="">
+                <input type="email" placeholder="Email" ng-model="data.newProfile.email">
             </label>
             <label class="item item-input item-floating-label">
                 <span class="input-label">Name</span>
-                <input type="text" placeholder="Name" ng-value="">
+                <input type="text" placeholder="Name" ng-model="data.newProfile.name">
             </label>
             <label class="item item-input item-floating-label">
                 <span class="input-label">Surname</span>
-                <input type="text" placeholder="Surname" ng-value="">
+                <input type="text" placeholder="Surname" ng-model="data.newProfile.surname">
             </label>
             <label class="item item-input item-floating-label">
                 <span class="input-label has-input">Birthday</span>
-                <input type="date" placeholder="Birthday" ng-value="">
+                <input type="date" placeholder="Birthday" ng-model="data.newProfile.birthday">
             </label>
             <label class="item item-input item-select">
                 <div class="input-label">
                     Sex
                 </div>
-                <select>
-                    <option selected>Male</option>
-                    <option>Female</option>
+                <select ng-model="data.newProfile.sex">
+                    <option value="1">Male</option>
+                    <option value="0">Female</option>
                 </select>
             </label>
             <label class="item item-input item-floating-label">
                 <span class="input-label">Height</span>
-                <input type="text" placeholder="Height" ng-value="">
+                <input type="text" placeholder="Height" ng-model="data.newProfile.height">
             </label>            
             <div class="item range range-balanced">
-                <div class="input-label has-input">Activity Level: {{activityLevel || 2}}</div>
+                <div class="input-label has-input">Activity Level: {{data.newProfile.activityLevel}}</div>
                 <i class="icon ion-ios-body-outline"></i>
-                <input type="range" name="activityLevel" min="1" max="6" ng-model="activityLevel">
+                <input type="range" name="activityLevel" min="1" max="6" ng-model="data.newProfile.activityLevel">
                 <i class="icon ion-ios-body"></i>
             </div>
             <ul class="list">
                 <li class="item item-checkbox">
                     Lifetime Athlete
                     <label class="checkbox checkbox-balanced">
-                        <input type="checkbox" ng-model="lifetimeAthlete">
+                        <input type="checkbox" ng-model="data.newProfile.lifetimeAthlete">
                     </label>
                     
                 </li>
@@ -64,7 +64,7 @@
 
     </ion-content>
     <div class="bar bar-footer" style="margin-bottom: 10px">
-        <button class="button button-full button-balanced">
+        <button class="button button-full button-balanced" ng-click="addProfile()" ng-disabled="data.newProfile.profileName.length == 0">
             Add Profile
         </button>
     </div>
