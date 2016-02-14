@@ -2,22 +2,20 @@ angular.module('mobio.controllers')
 
         .controller('BloodPressureCtrl', function ($scope, odmlBloodPressureFora) {
 
-            $scope.lastBPM = 0;
             ///////////////// FOR TESTING ONLY /////////////////
             //return;
             ///////////////// FOR TESTING ONLY /////////////////
 
             $scope.data = {
-                d: [],
                 discovered: [],
-                selectedDevice: {}
-            };
-            $scope.data2 = {
-                m: []
+                selectedDevice: {},
+                lastBPM: 0,
+                subscribed: false
             };
 
+            $scope.data.odMLData = odmlBloodPressureFora.getBasicObject();
+
             var lastDateIndex = "";
-            $scope.data3 = {};
 
             function checkSum(message) {
                 var sum = 0;
@@ -26,6 +24,15 @@ angular.module('mobio.controllers')
                 }
                 return sum;
             }
+
+            function setSubscribedFlag(subscribed) {
+                $scope.$apply(
+                        function () {
+                            $scope.data.subscribed = subscribed;
+                        }
+                );
+            }
+            ;
 
             bluetoothSerial.isEnabled(
                     function () {
@@ -52,10 +59,22 @@ angular.module('mobio.controllers')
                         });
                     }
             );
-           
-            $scope.loadData = function (onlyLatest) {
 
-                //bluetoothSerial.list(success, failure);
+            $scope.resetData = function () {
+                $scope.data.odMLData = odmlBloodPressureFora.getBasicObject();
+                $scope.data.lastBPM = 0;
+            };
+
+            $scope.loadData = function (onlyLatest) {
+                $scope.data.subscribed = true;
+                if (onlyLatest) {
+                    $scope.data.odMLData = odmlBloodPressureFora.resetBloodPressureLatest($scope.data.odMLData);
+                    $scope.data.lastBPM = 0;
+                } else {
+                    $scope.data.odMLData = odmlBloodPressureFora.resetBloodPressureMeasurement($scope.data.odMLData);
+                }
+                $scope.data.odMLData = odmlBloodPressureFora.setDate($scope.data.odMLData, moment().format());
+                $scope.data.odMLData = odmlBloodPressureFora.setDeviceInfo($scope.data.odMLData, $scope.data.selectedDevice);
                 var id = $scope.data.selectedDevice.id; //'8C:DE:52:21:86:94';
                 var MSG_START = 43;
                 var MSG_A = 37;
@@ -67,6 +86,7 @@ angular.module('mobio.controllers')
                 var endMsg = [81, MSG_END, 0, 0, 0, 0, -93, 0];
                 endMsg[7] = checkSum(endMsg);
                 if (typeof id == 'undefined') {
+                    $scope.data.subscribed = false;
                     alert('Device not selected.');
                     return false;
                 }
@@ -82,31 +102,34 @@ angular.module('mobio.controllers')
                                         }
                                 ,
                                         function (failure) {
-                                            alert("read failure");
+                                            setSubscribedFlag(false);
+                                            console.log("BT read failure");
                                         }
                                 );
                             }
                     ,
                             function (failure) {
-                                alert("write failure");
+                                setSubscribedFlag(false);
+                                console.log("BT write failure");
                             }
                     );
                 }, function () {
-                    console.log("BT connectFailure");
+                    setSubscribedFlag(false);
+                    console.log("BT connect ended");
                 });
                 var askForMeasurement = function (record, count, onlyLatest) {
                     var msgB = [81, MSG_B, 0, 0, 0, 1, -93, 0];
                     msgB[2] = (record);
                     msgB[3] = ((record >> 8));
                     msgB[7] = checkSum(msgB);
-                    $scope.data3[record] = msgB;
                     bluetoothSerial.write(msgB,
                             function (success) {
                                 readMeasurement(record, count, onlyLatest);
                             }
                     ,
                             function (failure) {
-                                alert("write failure");
+                                setSubscribedFlag(false);
+                                console.log("BT write failure");
                             }
                     );
                 };
@@ -116,19 +139,19 @@ angular.module('mobio.controllers')
                                 bluetoothSerial.unsubscribeRawData();
                                 $scope.$apply(
                                         function () {
-                                            //$scope.data2.m.push(new Uint8Array(result));
-                                            //$scope.data2.m[lastDateIndex] = new Uint8Array(result);
                                             var rawData = new Uint8Array(result);
-                                            var data = odmlBloodPressureFora.getBasicObject();
-                                            data = odmlBloodPressureFora.setDate(data, lastDateIndex);
-                                            data = odmlBloodPressureFora.setSystolic(data, rawData[2]);
-                                            data = odmlBloodPressureFora.setMean(data, rawData[3]);
-                                            data = odmlBloodPressureFora.setDiastolic(data, rawData[4]);                                            
-                                            data = odmlBloodPressureFora.setHeartRate(data, rawData[5]);
-                                            $scope.data2.m.push(data);
-
+                                            var dataToSet = {
+                                                systolic: rawData[2],
+                                                diastolic: rawData[4],
+                                                mean: rawData[3],
+                                                heartRate: rawData[5]
+                                            };
+                                           
                                             if (onlyLatest) {
-                                                $scope.lastBPM = odmlBloodPressureFora.getHeartRate(data);
+                                                $scope.data.odMLData = odmlBloodPressureFora.setBloodPressureLatest($scope.data.odMLData, lastDateIndex, dataToSet);
+                                                $scope.data.lastBPM = odmlBloodPressureFora.getLatestHeartRate($scope.data.odMLData);
+                                            } else {
+                                                $scope.data.odMLData = odmlBloodPressureFora.addBloodPressureMeasurement($scope.data.odMLData, lastDateIndex, dataToSet);
                                             }
                                         }
                                 );
@@ -139,7 +162,6 @@ angular.module('mobio.controllers')
 
                                 if (record < count - 1) {
                                     record++;
-                                    //askForMeasurement(record, count, onlyLatest);
                                     askForDateTime(record, count, onlyLatest);
                                 } else {
                                     closeConnection();
@@ -147,7 +169,8 @@ angular.module('mobio.controllers')
                             }
                     ,
                             function (failure) {
-                                alert("subscribeRawData failure");
+                                setSubscribedFlag(false);
+                                console.log("BT subscribeRawData failure");
                             }
                     );
                 };
@@ -162,14 +185,14 @@ angular.module('mobio.controllers')
                     }
 
                     msgA[7] = checkSum(msgA);
-                    $scope.data3[record] = msgA;
                     bluetoothSerial.write(msgA,
                             function (success) {
                                 readDateTime(record, count, onlyLatest);
                             }
                     ,
                             function (failure) {
-                                alert("write failure");
+                                setSubscribedFlag(false);
+                                console.log("BT write failure");
                             }
                     );
                 };
@@ -182,7 +205,8 @@ angular.module('mobio.controllers')
                             }
                     ,
                             function (failure) {
-                                alert("subscribeRawData failure");
+                                setSubscribedFlag(false);
+                                console.log("BT subscribeRawData failure");
                             }
                     );
                 };
@@ -198,7 +222,10 @@ angular.module('mobio.controllers')
 
                 var closeConnection = function () {
                     bluetoothSerial.write(endMsg, function (success) {
+                        setSubscribedFlag(false);
                     }, function (failure) {
+                        setSubscribedFlag(false);
+                        console.log("BT closeConnection failure");
                     });
                 };
             };
