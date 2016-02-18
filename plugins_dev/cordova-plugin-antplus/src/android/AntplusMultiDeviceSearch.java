@@ -61,7 +61,16 @@ public class AntplusMultiDeviceSearch {
         this.callbackContext = callbackContext;
         
         @SuppressWarnings("unchecked")
-        EnumSet<DeviceType> devices = EnumSet.of(DeviceType.valueOf(deviceType));
+        
+        String []deviceTypes = deviceType.split(",");
+        EnumSet<DeviceType> devices = EnumSet.of(DeviceType.valueOf(deviceTypes[0]));
+        
+        if(deviceTypes.length > 1) {
+            for(int i = 1; i < deviceTypes.length; i++) {
+                devices.add(DeviceType.valueOf(deviceTypes[i]));
+            }
+        }
+        
         //EnumSet<DeviceType> devices = EnumSet.of(DeviceType.HEARTRATE);
         //EnumSet<DeviceType> devices = EnumSet.allOf(DeviceType.class);
 
