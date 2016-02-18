@@ -1,0 +1,81 @@
+<ion-view cache-view="false">
+    <ion-nav-bar class="bar-positive" align-title="center">
+        <ion-nav-title style="font-size: 12px">
+            <span ng-if="data.deviceStateChange.name">{{(data.deviceStateChange.name + ': ' + data.deviceStateChange.state)}}</span>
+            <span ng-if="!data.deviceStateChange.name">Bike Speed & Distance & Cadence</span>            
+        </ion-nav-title>
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+        <ion-nav-buttons side="right">
+            <button class="button button-clear" ng-click="buttonListenClick()" ng-disabled="!data.selectedDevice.antDeviceNumber">
+                <span ng-show="!data.subscribed">Listen</span>
+                <span ng-show="data.subscribed">Stop</span>                
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-tabs tabs-type="tabs-icon-only">
+        <ion-tab title="Device List" icon-on="ion-ios-search-strong" icon-off="ion-ios-search">
+            <ion-content class="padding" style="padding-top: 45px">
+                <button class="button button-calm button-block button-small" ng-hide="spinner.show" ng-click="buttonStartSearchClick()">
+                    Start search 
+                </button>
+                <button class="button button-calm button-block button-small" ng-show="spinner.show" ng-click="buttonStopSearchClick()">
+                    Stop search 
+                </button>    
+                <div class="row" ng-show="spinner.show">
+                    <div class="col text-center">
+                        <ion-spinner icon="android"></ion-spinner>
+                    </div>
+                </div>                
+                <div class="list">
+                    <label class="item item-radio" ng-repeat="dev in data.discovered">
+                        <input type="radio" name="group" ng-model="data.selectedDevice" ng-value="dev">
+                        <div class="item-content">
+                            {{dev.deviceDisplayName}} - {{dev.antDeviceType}}
+                        </div>
+                        <i class="radio-icon ion-checkmark"></i>
+                    </label>
+                </div>
+            </ion-content>
+        </ion-tab>
+        
+        <ion-tab title="Statistics" icon-on="ion-ios-list-outline" icon-off="ion-ios-list-outline">
+            <ion-content class="padding" style="padding-top: 45px">
+                <div class="row">
+                    <div class="col col-80"><h3>odML Data Checks</h3></div>
+                    <div class="col col-20 text-center">
+                        <ion-spinner icon="android" ng-if="data.subscribed"></ion-spinner>
+                    </div>
+                </div>
+                <ul class="list">                                            
+                    <li class="item-content" ng-repeat="section in odMLData.odML.section">
+                        <div class="row">
+                            <div class="col col-80">{{section.name}}</div>
+                            <div class="col col-20 text-center">
+                                <div ng-if="section.property">
+                                    <span class="icon ion-record text-center red" style="font-size: 24px" ng-if="section.property[0].value.content == 0 || section.property[0].value.content == ''"></span>
+                                    <span class="icon ion-record text-center green" style="font-size: 24px" ng-if="section.property[0].value.content != 0 && section.property[0].value.content != ''"></span>
+                                </div>
+                                <div ng-if="section.section">
+                                    <span class="icon ion-record text-center red" style="font-size: 24px" ng-if="section.section.length == 0"></span>
+                                    <span class="icon ion-record text-center green" style="font-size: 24px" ng-if="section.section.length > 0"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>                   
+                </ul>
+            </ion-content>
+        </ion-tab>
+
+        <ion-tab title="Bike SD" icon-on="ion-arrow-graph-up-right" icon-off="ion-arrow-graph-up-right">
+            <ion-content style="padding-top: 50px" scroll="true">
+                <textarea rows="20" cols="50">{{odMLData}}</textarea>
+            </ion-content>
+        </ion-tab>
+        
+    </ion-tabs>
+    <!--    <ion-content>
+            
+        </ion-content>-->
+</ion-view>

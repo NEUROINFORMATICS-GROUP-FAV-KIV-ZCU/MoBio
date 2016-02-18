@@ -107,6 +107,16 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
                             }
                         }
                     })
+                    
+                    .state('app.bikeant', {
+                        url: '/activity/bikeant',
+                        views: {
+                            'menuContent': {
+                                templateUrl: 'templates/bikeSD/bikeant.html',
+                                controller: 'BikeSDCtrl'
+                            }
+                        }
+                    })
 
                     .state('profiles', {
                         url: "/profiles",
