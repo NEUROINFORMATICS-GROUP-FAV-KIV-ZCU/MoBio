@@ -111,7 +111,7 @@ public class AntplusBikeSpeedDistanceService {
 
                 JSONObject r = new JSONObject();
                 try {
-                    r.put("event", "CalculatedSpeedData");
+                    r.put("event", "calculatedSpeedData");
                     r.put("eventFlags", eventFlags);
                     r.put("estTimestamp", estTimestamp);
                     r.put("calculatedSpeed", calculatedSpeed);
@@ -153,6 +153,7 @@ public class AntplusBikeSpeedDistanceService {
                     r.put("event", "cumulativeRevolutionsData");
                     r.put("eventFlags", eventFlags);
                     r.put("estTimestamp", estTimestamp);
+                    r.put("timestampOfLastEvent", timestampOfLastEvent);
                     r.put("cumulativeRevolutions", cumulativeRevolutions);
                 } catch (JSONException e) {
                     System.err.println(e.getMessage());
@@ -184,7 +185,8 @@ public class AntplusBikeSpeedDistanceService {
                                                 r.put("event", "calculatedCadenceData");
                                                 r.put("eventFlags", eventFlags);
                                                 r.put("estTimestamp", estTimestamp);
-                                                r.put("cumulativeRevolutions", calculatedCadence);
+                                                r.put("isCombinedSensor", true);
+                                                r.put("calculatedCadence", calculatedCadence);
                                             } catch (JSONException e) {
                                                 System.err.println(e.getMessage());
                                             }
