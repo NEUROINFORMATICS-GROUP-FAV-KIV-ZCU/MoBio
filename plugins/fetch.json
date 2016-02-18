@@ -15,14 +15,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-splashscreen": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-splashscreen"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "com.ionic.keyboard": {
         "source": {
             "type": "registry",
@@ -43,6 +35,14 @@
         "source": {
             "type": "registry",
             "id": "cordova-plugin-ble-central"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-splashscreen": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-splashscreen@3.0.0"
         },
         "is_top_level": true,
         "variables": {}
