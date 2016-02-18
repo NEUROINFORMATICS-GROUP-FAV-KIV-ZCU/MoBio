@@ -70,5 +70,13 @@ module.exports = {
     
     unsubscribeSDM: function (successCallback, errorCallback) {
         cordova.exec(successCallback, errorCallback, "Antplus", "unsubscribeSDM", []);
+    },
+    
+    subscribeBike: function (antDeviceNumber, circumference, deviceType, successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "Antplus", "subscribeBike", [antDeviceNumber, circumference, deviceType]);
+    },
+    
+    unsubscribeBike: function (successCallback, errorCallback) {
+        cordova.exec(successCallback, errorCallback, "Antplus", "unsubscribeBike", []);
     }
 };
