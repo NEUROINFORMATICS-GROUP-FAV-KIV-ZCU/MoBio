@@ -72,6 +72,8 @@ angular.module('mobio.controllers')
                                             } else if (readResult.event == "manufacturerSpecificData") {
                                                 $scope.odMLData = odmlStrideSDMAnt.setManufacturerSpecificData($scope.odMLData, readResult);
                                                 $scope.data.manufacturerSpecificData = readResult;
+                                            } else if (readResult.event == "deviceStateChange") {
+                                                $scope.data.deviceStateChange = readResult;
                                             }
                                         });
                             }
