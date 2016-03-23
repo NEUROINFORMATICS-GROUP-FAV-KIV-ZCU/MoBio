@@ -30,7 +30,7 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
             authProvider.init({
                 domain: 'mobio.eu.auth0.com',
                 clientID: '1AwrQrmRrTIoD7MgzFotZOf9MNlGz22A',
-                loginState: 'login' // This is the name of the state where you'll show the login, which is defined above...
+                loginState: 'home' // This is the name of the state where you'll show the login, which is defined above...
             });
 
             jwtInterceptorProvider.tokenGetter = function (store, jwtHelper, auth) {
