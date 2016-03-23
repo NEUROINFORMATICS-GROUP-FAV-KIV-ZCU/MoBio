@@ -5,7 +5,7 @@ angular.module('mobio.odML')
             var odMLdataStructure = {
                 "odML": {
                     "author": "mobio_app",
-                    "date": "1970-01-01T00:00:00+00:00", //ISO 8601
+                    "date": "1970-01-01T00:00:00.000+0000", 
                     "version": 1,
                     "xmlns:gui": "http://www.g-node.org/guiml",
                     "section": [

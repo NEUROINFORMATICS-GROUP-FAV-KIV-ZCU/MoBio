@@ -5,7 +5,7 @@ angular.module('mobio.odML')
             var odMLdataStructure = {
                 "odML": {
                     "author": "mobio_app",
-                    "date": "1970-01-01T00:00:00+00:00",
+                    "date": "1970-01-01T00:00:00.000+0000",
                     "version": 1,
                     "xmlns:gui": "http://www.g-node.org/guiml",
                     "section": [
@@ -17,7 +17,7 @@ angular.module('mobio.odML')
                                     "name": "date",
                                     "value": {
                                         "type": "string",
-                                        "content": "" //ISO 8601
+                                        "content": "" 
                                     }
                                 },
                                 {//1
@@ -61,7 +61,7 @@ angular.module('mobio.odML')
                             "type": "deviceInfo",
                             "property": [
                                 {//0
-                                    "name": "name",
+                                    "name": "deviceName",
                                     "value": {
                                         "type": "string",
                                         "content": ""
@@ -136,7 +136,7 @@ angular.module('mobio.odML')
                                 "name": "date",
                                 "value": {
                                     "type": "string",
-                                    "content": date //ISO 8601
+                                    "content": date 
                                 }
                             },
                             {//1
@@ -185,7 +185,7 @@ angular.module('mobio.odML')
                             "name": "date",
                             "value": {
                                 "type": "string",
-                                "content": "" //ISO 8601
+                                "content": "" 
                             }
                         },
                         {//1

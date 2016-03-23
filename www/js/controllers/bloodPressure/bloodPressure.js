@@ -73,7 +73,7 @@ angular.module('mobio.controllers')
                 } else {
                     $scope.odMLData = odmlBloodPressureFora.resetBloodPressureMeasurement($scope.odMLData);
                 }
-                $scope.odMLData = odmlBloodPressureFora.setDate($scope.odMLData, moment().format());
+                $scope.odMLData = odmlBloodPressureFora.setDate($scope.odMLData, moment().format("YYYY-MM-DDTHH:mm:ss.SSSZZ"));
                 $scope.odMLData = odmlBloodPressureFora.setDeviceInfo($scope.odMLData, $scope.data.selectedDevice);
                 var id = $scope.data.selectedDevice.id; //'8C:DE:52:21:86:94';
                 var MSG_START = 43;
@@ -200,7 +200,7 @@ angular.module('mobio.controllers')
                     bluetoothSerial.subscribeRawData(
                             function (result) {
                                 bluetoothSerial.unsubscribeRawData();
-                                lastDateIndex = getDateTime(new Uint8Array(result)).format();
+                                lastDateIndex = getDateTime(new Uint8Array(result)).format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
                                 askForMeasurement(record, count, onlyLatest);
                             }
                     ,

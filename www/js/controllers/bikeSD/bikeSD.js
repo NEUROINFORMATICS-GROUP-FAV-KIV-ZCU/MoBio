@@ -98,7 +98,7 @@ angular.module('mobio.controllers')
                                         //don't allow the user to close unless he enters Wheel Circumference
                                         e.preventDefault();
                                     } else {
-                                        $scope.odMLData = odmlBikeAnt.setDate($scope.odMLData, moment().format());
+                                        $scope.odMLData = odmlBikeAnt.setDate($scope.odMLData, moment().format("YYYY-MM-DDTHH:mm:ss.SSSZZ"));
                                         $scope.odMLData = odmlBikeAnt.setWheelCircumference($scope.odMLData, $scope.data.wheelCircumference);
                                         $scope.subscribeBike($scope.data.selectedDevice.antDeviceNumber,
                                                 odmlBikeAnt.getWheelCircumference($scope.odMLData).property[0].value.content,

@@ -95,7 +95,7 @@ angular.module('mobio.controllers')
                     $scope.unsubscribeSDM();
                 } else {
                     $scope.odMLData = odmlStrideSDMAnt.getBasicObject();
-                    $scope.odMLData = odmlStrideSDMAnt.setDate($scope.odMLData, moment().format());
+                    $scope.odMLData = odmlStrideSDMAnt.setDate($scope.odMLData, moment().format("YYYY-MM-DDTHH:mm:ss.SSSZZ"));
                     $scope.subscribeSDM($scope.data.selectedDevice.antDeviceNumber);
                 }
                 $scope.data.subscribed = !$scope.data.subscribed;
