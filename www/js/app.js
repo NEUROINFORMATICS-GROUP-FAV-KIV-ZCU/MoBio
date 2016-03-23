@@ -1,5 +1,5 @@
 
-angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.directives', 'mobio.odML', 'mobio.cache', 'pascalprecht.translate'])
+angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.directives', 'mobio.odML', 'mobio.cache', 'mobio.eegbase', 'pascalprecht.translate', 'auth0', 'angular-storage', 'angular-jwt'])
 
         .run(function ($ionicPlatform, localCache) {
             $ionicPlatform.ready(function () {
@@ -19,13 +19,39 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
                     // org.apache.cordova.statusbar required
                     StatusBar.styleDefault();
                 }
-                
+
                 localCache.initialize();
-                
+
             });
         })
 
-        .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, $translateProvider, i18n_en, i18n_cs) {
+        .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, $translateProvider, i18n_en, i18n_cs, authProvider, $httpProvider, jwtInterceptorProvider) {
+
+            authProvider.init({
+                domain: 'mobio.eu.auth0.com',
+                clientID: '1AwrQrmRrTIoD7MgzFotZOf9MNlGz22A',
+                loginState: 'login' // This is the name of the state where you'll show the login, which is defined above...
+            });
+
+            jwtInterceptorProvider.tokenGetter = function (store, jwtHelper, auth) {
+                var idToken = store.get('token');
+                var refreshToken = store.get('refreshToken');
+                // If no token return null
+                if (!idToken || !refreshToken) {
+                    return null;
+                }
+                // If token is expired, get a new one
+                if (jwtHelper.isTokenExpired(idToken)) {
+                    return auth.refreshIdToken(refreshToken).then(function (idToken) {
+                        store.set('token', idToken);
+                        return idToken;
+                    });
+                } else {
+                    return idToken;
+                }
+            };
+
+            $httpProvider.interceptors.push('jwtInterceptor');
 
             $ionicConfigProvider.tabs.position('bottom');
             $ionicConfigProvider.backButton.text('').icon('ion-ios-arrow-back');
@@ -44,7 +70,7 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
                         templateUrl: 'templates/home.html',
                         controller: 'HomeCtrl'
                     })
-                    
+
                     .state('settings', {
                         url: '/settings',
                         templateUrl: 'templates/settings.html',
@@ -87,7 +113,7 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
                             }
                         }
                     })
-                    
+
                     .state('app.wgtant', {
                         url: '/activity/wgtant',
                         views: {
@@ -97,7 +123,7 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
                             }
                         }
                     })
-                    
+
                     .state('app.sdmant', {
                         url: '/activity/sdmant',
                         views: {
@@ -107,7 +133,7 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
                             }
                         }
                     })
-                    
+
                     .state('app.bikeant', {
                         url: '/activity/bikeant',
                         views: {
@@ -124,7 +150,7 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
                         templateUrl: "templates/menu.html",
                         controller: 'AppCtrl'
                     })
-                    
+
                     .state('profiles.new', {
                         url: '/new',
                         views: {
@@ -134,7 +160,7 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
                             }
                         }
                     })
-                    
+
                     .state('profiles.list', {
                         url: '/list',
                         views: {
@@ -142,10 +168,10 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
                                 templateUrl: 'templates/profiles/list.html',
                                 controller: 'ProfilesListCtrl'
                             }
-                        }                        
+                        }
                     })
-                    
-                    
+
+
 
                     ;
 
@@ -156,3 +182,4 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
 angular.module('mobio.controllers', []);
 angular.module('mobio.odML', []);
 angular.module('mobio.cache', []);
+angular.module('mobio.eegbase', []);

@@ -40,5 +40,6 @@ angular.module('mobio.config')
             'LOG_OUT': 'Odhlášení',
             'CREATE_PROFILE': 'Vytvořit Profil',
             'SELECT_PROFILE': 'Vybrat Profil',
-            'SETTINGS': 'Nastavení'
+            'SETTINGS': 'Nastavení',
+            'LOGIN': 'Přihlášení'
         });

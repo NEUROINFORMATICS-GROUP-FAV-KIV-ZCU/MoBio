@@ -40,5 +40,6 @@ angular.module('mobio.config')
             'LOG_OUT': 'Log Out',
             'CREATE_PROFILE': 'Create Profile',
             'SELECT_PROFILE': 'Select Profile',
-            'SETTINGS': 'Settings'
+            'SETTINGS': 'Settings',
+            'LOGIN': 'Login'
         });
