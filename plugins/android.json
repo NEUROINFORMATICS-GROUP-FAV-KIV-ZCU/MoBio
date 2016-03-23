@@ -27,6 +27,30 @@
                         {
                             "xml": "<feature name=\"Antplus\"><param name=\"android-package\" value=\"cz.zcu.kiv.neuroinformatics.antplus.Antplus\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"webView\" value=\"org.crosswalk.engine.XWalkWebViewEngine\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference default=\"16+\" name=\"xwalkVersion\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference default=\"--disable-pull-to-refresh-effect\" name=\"xwalkCommandLine\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference default=\"embedded\" name=\"xwalkMode\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference default=\"true\" name=\"xwalkMultipleApk\" />",
+                            "count": 1
                         }
                     ],
                     "/widget": [
@@ -57,6 +81,14 @@
                         {
                             "xml": "<uses-permission android:name=\"com.dsi.ant.permission.ANT\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\" />",
+                            "count": 1
                         }
                     ]
                 }
@@ -83,6 +115,12 @@
             "PACKAGE_NAME": "cz.zcu.kiv.neuroinformatics.mobio"
         },
         "cz.zcu.kiv.neuroinformatics.antplus": {
+            "PACKAGE_NAME": "cz.zcu.kiv.neuroinformatics.mobio"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "cz.zcu.kiv.neuroinformatics.mobio"
+        },
+        "cordova-plugin-crosswalk-webview": {
             "PACKAGE_NAME": "cz.zcu.kiv.neuroinformatics.mobio"
         }
     },
