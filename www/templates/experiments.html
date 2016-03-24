@@ -1,0 +1,29 @@
+
+<ion-view view-title="My Experiments" cache-view="true">
+    <ion-nav-bar class="bar-calm" align-title="center">
+
+        <ion-nav-buttons side="left">
+            <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+            </button>
+        </ion-nav-buttons>
+
+        <ion-nav-buttons side="right">
+            <button class="button button-icon button-clear ion-android-sync" ng-click="syncExperiments()">
+            </button>
+        </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-content scroll="true" class="has-header has-footer">
+        <div class="row">                    
+            <div class="col">
+                <button class="button button-full button-calm button-outline button-small" ng-repeat="experiment in global.experimentList" ng-click="setSelectedExperiment(experiment)">
+                    <h2>{{experiment.experimentId}}</h2>
+                    <p>{{experiment.startTime| date:'medium'}}</p>
+                    <p>Scenario: {{experiment.scenario.scenarioName}}</p>
+                </button>
+            </div>
+        </div>
+    </ion-content>
+    <div class="bar bar-footer bar-calm">
+        Selected Experiment: {{getSelectedExperiment().experimentId}}
+    </div>;
+</ion-view>

@@ -170,6 +170,23 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
                             }
                         }
                     })
+                    
+                    .state('experiments', {
+                        url: "/experiments",
+                        abstract: true,
+                        templateUrl: "templates/menu.html",
+                        controller: 'AppCtrl'
+                    })
+                    
+                    .state('experiments.list', {
+                        url: '/list',
+                        views: {
+                            'menuContent': {
+                                templateUrl: 'templates/experiments.html',
+                                controller: 'ExperimentListCtrl'
+                            }
+                        }
+                    })
 
 
 
