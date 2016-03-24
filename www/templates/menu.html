@@ -14,7 +14,7 @@
 
     <ion-side-menu side="left">
         <ion-header-bar class="bar-positive">
-            <h1 class="title">Profile: {{getSelectedProfile().profileName}}, Exp ID: {{getSelectedExperiment().experimentId}}</h1>
+            <h1 class="title">Profile: {{getSelectedProfile().profileName || 'N/A'}}, Exp ID: {{getSelectedExperiment().experimentId || 'N/A'}}</h1>
         </ion-header-bar>
         <ion-content>
             <ion-list>        
@@ -31,7 +31,7 @@
                     Activities
                 </ion-item>                
                 <ion-item menu-close href="#/home">
-                    Home
+                   <i class="icon ion-android-arrow-back"></i> Home
                 </ion-item>
             </ion-list>
         </ion-content>
