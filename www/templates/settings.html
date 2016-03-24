@@ -11,14 +11,14 @@
         <div class="list">
             <label class="item item-input item-floating-label">
                 <span class="input-label has-input">EEGbase REST URL</span>
-                <input type="text" placeholder="EEGbase REST URL" ng-value="'http://eeg2.kiv.zcu.cz:8080'">
+                <input type="text" placeholder="EEGbase REST URL" ng-model="data.restUrl">
             </label>
         </div>
 
 
     </ion-content>
     <div class="bar bar-footer" style="margin-bottom: 10px">
-        <button class="button button-full button-assertive">
+        <button class="button button-full button-assertive" ng-click="updateSettings()">
             Save
         </button>
     </div>

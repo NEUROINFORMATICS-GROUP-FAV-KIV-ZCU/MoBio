@@ -74,7 +74,7 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
                     .state('settings', {
                         url: '/settings',
                         templateUrl: 'templates/settings.html',
-                        //controller: 'SettingsCtrl'
+                        controller: 'SettingsCtrl'
                     })
 
                     .state('app', {

@@ -9,7 +9,7 @@ angular.module('mobio.cache')
                 initialize: function () {
                     if (this.cacheAvailable()) { // local storage is supported
 
-                        var cachesList = ["profileCache"];
+                        var cachesList = ["profileCache", "settingsCache"];
                         for (var i = 0; i < cachesList.length; i++) {
                             if (window.localStorage.getItem(cachesList[i]) == null) { // initialize cache storage
                                 window.localStorage.setItem(cachesList[i], JSON.stringify({}));

@@ -1,12 +1,12 @@
 angular.module('mobio.eegbase')
 
-        .factory('experimentService', function ($http, $q, appConfig) {
+        .factory('experimentService', function ($http, $q, settingsCache) {
 
             return {
                 
                 getMyExperiments: function () {
                     var deferred = $q.defer();
-                    $http.get(appConfig.restAPI + "rest/experiments/mineMobio").then(function (response) {
+                    $http.get(settingsCache.getSettings().restUrl + "/rest/experiments/mineMobio").then(function (response) {
                         console.log("OK getMyExperiments");
                         console.log(response);
                         deferred.resolve(response);
@@ -26,7 +26,7 @@ angular.module('mobio.eegbase')
 
                     var experimentId = 20;
 
-                    $http.post(appConfig.restAPI + "rest/experiments/addOdmlMobio/" + experimentId, data_json,  {headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}}).then(function (response) {
+                    $http.post(settingsCache.getSettings().restUrl + "/rest/experiments/addOdmlMobio/" + experimentId, data_json,  {headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}}).then(function (response) {
                         console.log("OK addOdmlMobio");
                         console.log(response);
                         deferred.resolve(response);
