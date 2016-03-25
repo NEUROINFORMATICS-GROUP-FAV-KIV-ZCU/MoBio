@@ -16,7 +16,7 @@ angular.module('mobio.odML')
                                 {//0
                                     "name": "timestamp",
                                     "value": {
-                                        "type": "int",
+                                        "type": "string",
                                         "content": 0
                                     }
                                 },
@@ -43,7 +43,7 @@ angular.module('mobio.odML')
                                 {//0
                                     "name": "timestamp",
                                     "value": {
-                                        "type": "int",
+                                        "type": "string",
                                         "content": 0
                                     }
                                 },
@@ -70,7 +70,7 @@ angular.module('mobio.odML')
                                 {//0
                                     "name": "timestamp",
                                     "value": {
-                                        "type": "int",
+                                        "type": "string",
                                         "content": 0
                                     }
                                 },
@@ -264,21 +264,21 @@ angular.module('mobio.odML')
                 },
                 setBodyWeightBroadcast: function (data, measurement) {
                     var result = data;
-                    result.odML.section[0].property[0].value.content = measurement.timestamp;
+                    result.odML.section[0].property[0].value.content = moment(measurement.timestamp).format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
                     result.odML.section[0].property[1].value.content = measurement.bodyWeight;
                     result.odML.section[0].property[2].value.content = measurement.bodyWeightStatus;
                     return result;
                 },
                 setBasicMeasurement: function (data, measurement) {
                     var result = data;
-                    result.odML.section[1].property[0].value.content = measurement.timestamp;
+                    result.odML.section[1].property[0].value.content = moment(measurement.timestamp).format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
                     result.odML.section[1].property[1].value.content = measurement.status;
                     result.odML.section[1].property[2].value.content = measurement.bodyWeight;
                     return result;
                 },
                 setAdvancedMeasurement: function (data, measurement) {
                     var result = data;
-                    result.odML.section[2].property[0].value.content = measurement.timestamp;
+                    result.odML.section[2].property[0].value.content = moment(measurement.timestamp).format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
                     result.odML.section[2].property[1].value.content = measurement.status;
                     result.odML.section[2].property[2].value.content = measurement.bodyWeight;
                     result.odML.section[2].property[3].value.content = measurement.hydrationPercentage;

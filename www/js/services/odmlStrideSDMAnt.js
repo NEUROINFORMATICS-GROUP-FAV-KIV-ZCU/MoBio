@@ -278,8 +278,8 @@ angular.module('mobio.odML')
                             {
                                 "name": "estTimestamp",
                                 "value": {
-                                    "type": "int",
-                                    "content": measurement.estTimestamp
+                                    "type": "string",
+                                    "content": moment(measurement.estTimestamp).format("YYYY-MM-DDTHH:mm:ss.SSSZZ")
                                 }
                             },
                             {
@@ -303,8 +303,8 @@ angular.module('mobio.odML')
                             {
                                 "name": "estTimestamp",
                                 "value": {
-                                    "type": "int",
-                                    "content": measurement.estTimestamp
+                                    "type": "string",
+                                    "content": moment(measurement.estTimestamp).format("YYYY-MM-DDTHH:mm:ss.SSSZZ")
                                 }
                             },
                             {

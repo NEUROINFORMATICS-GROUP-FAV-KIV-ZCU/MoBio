@@ -155,7 +155,7 @@ angular.module('mobio.odML')
                                 {//0
                                     "name": "estTimestamp",
                                     "value": {
-                                        "type": "int",
+                                        "type": "string",
                                         "content": 0
                                     }
                                 },
@@ -235,8 +235,8 @@ angular.module('mobio.odML')
                             {
                                 "name": "estTimestamp",
                                 "value": {
-                                    "type": "int",
-                                    "content": measurement.estTimestamp
+                                    "type": "string",
+                                    "content": moment(measurement.estTimestamp).format("YYYY-MM-DDTHH:mm:ss.SSSZZ")
                                 }
                             },
                             {
@@ -294,7 +294,7 @@ angular.module('mobio.odML')
                 },
                 setMotionAndSpeed: function (data, measurement) {
                     var result = data;
-                    result.odML.section[8].property[0].value.content = measurement.estTimestamp;
+                    result.odML.section[8].property[0].value.content = moment(measurement.estTimestamp).format("YYYY-MM-DDTHH:mm:ss.SSSZZ");
                     result.odML.section[8].property[1].value.content = measurement.isStopped;
                     return result;
                 },

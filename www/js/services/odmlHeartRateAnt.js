@@ -134,8 +134,8 @@ angular.module('mobio.odML')
                             {
                                 "name": "timestamp",
                                 "value": {
-                                    "type": "int",
-                                    "content": measurement.timestamp
+                                    "type": "string",
+                                    "content": moment(measurement.timestamp).format("YYYY-MM-DDTHH:mm:ss.SSSZZ")
                                 }
                             },
                             {
@@ -173,15 +173,15 @@ angular.module('mobio.odML')
                             {
                                 "name": "timestamp",
                                 "value": {
-                                    "type": "int",
-                                    "content": measurement.timestamp
+                                    "type": "string",
+                                    "content": moment(measurement.timestamp).format("YYYY-MM-DDTHH:mm:ss.SSSZZ")
                                 }
                             },
                             {
                                 "name": "estTimestamp",
                                 "value": {
-                                    "type": "int",
-                                    "content": measurement.estTimestamp
+                                    "type": "string",
+                                    "content": moment(measurement.estTimestamp).format("YYYY-MM-DDTHH:mm:ss.SSSZZ")
                                 }
                             },
                             {
@@ -217,15 +217,15 @@ angular.module('mobio.odML')
                             {
                                 "name": "timestamp",
                                 "value": {
-                                    "type": "int",
-                                    "content": measurement.timestamp
+                                    "type": "string",
+                                    "content": moment(measurement.timestamp).format("YYYY-MM-DDTHH:mm:ss.SSSZZ")
                                 }
                             },
                             {
                                 "name": "estTimestamp",
                                 "value": {
-                                    "type": "int",
-                                    "content": measurement.estTimestamp
+                                    "type": "string",
+                                    "content": moment(measurement.estTimestamp).format("YYYY-MM-DDTHH:mm:ss.SSSZZ")
                                 }
                             },
                             {
