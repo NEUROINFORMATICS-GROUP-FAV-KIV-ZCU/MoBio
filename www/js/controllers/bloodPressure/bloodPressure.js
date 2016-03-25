@@ -10,7 +10,20 @@ angular.module('mobio.controllers')
                 discovered: [],
                 selectedDevice: {},
                 lastBPM: 0,
-                subscribed: false
+                subscribed: false,
+                hyperZone: null
+            };
+                                    
+            var calculateHypertensionZone = function(systolic, diastolic) {
+                if(systolic < 140 && diastolic < 90) {
+                    $scope.data.hyperZone = 1;
+                } else if(systolic >= 140 && systolic <= 179 && diastolic >= 90 && diastolic <= 104) {
+                    $scope.data.hyperZone = 2;
+                } else if(systolic >= 180 && systolic <= 199 && diastolic >= 105 && diastolic <= 114) {
+                    $scope.data.hyperZone = 3;
+                } else if(systolic >= 200 && diastolic >= 115) {
+                    $scope.data.hyperZone = 4;
+                }
             };
 
             $scope.odMLData = odmlBloodPressureFora.getBasicObject();
@@ -150,6 +163,7 @@ angular.module('mobio.controllers')
                                             if (onlyLatest) {
                                                 $scope.odMLData = odmlBloodPressureFora.setBloodPressureLatest($scope.odMLData, lastDateIndex, dataToSet);
                                                 $scope.data.lastBPM = odmlBloodPressureFora.getLatestHeartRate($scope.odMLData);
+                                                calculateHypertensionZone(dataToSet.systolic, dataToSet.diastolic);
                                             } else {
                                                 $scope.odMLData = odmlBloodPressureFora.addBloodPressureMeasurement($scope.odMLData, lastDateIndex, dataToSet);
                                             }

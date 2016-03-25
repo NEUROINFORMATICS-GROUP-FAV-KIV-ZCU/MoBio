@@ -179,3 +179,19 @@ div.scroll.padding {
 .rowHrMarked {
     background-color: #2FEF20;
 }
+
+.rowHyperMarked1 {
+    background-color: #2FEF20;
+}
+
+.rowHyperMarked2 {
+    background-color: #FFE000;
+}
+
+.rowHyperMarked3 {
+    background-color: #FF8B00;
+}
+
+.rowHyperMarked4 {
+    background-color: #FF0E0E;
+}

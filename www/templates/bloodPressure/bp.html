@@ -76,8 +76,75 @@
                 
             </ion-content>
         </ion-tab>
+        
+        <ion-tab title="Analysis" icon-on="ion-arrow-graph-up-right" icon-off="ion-arrow-graph-up-right">
+            <ion-content style="padding-top: 50px" scroll="true">
+                <div style="font-size: 11px">
+                    <div class="row text-center">
+                        <div class="col" style="border: solid 1px; border-bottom: none;">
+                            <strong>Is the blood pressure right or is it already a hypertension?</strong>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="border: solid 1px; border-bottom: none; border-right: none;">
+                            
+                        </div>
+                        <div class="col" style="border: solid 1px; border-bottom: none; border-right: none;">
+                            <strong>Systolic (mm Hg)</strong>
+                        </div>
+                        <div class="col" style="border: solid 1px; border-bottom: none;">
+                            <strong>Diastolic (mm Hg)</strong>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="border: solid 1px; border-bottom: none; border-right: none;" ng-class="{'rowHyperMarked1': data.hyperZone == 1}">
+                            Normal pressure
+                        </div>
+                        <div class="col" style="border: solid 1px; border-bottom: none; border-right: none;" ng-class="{'rowHyperMarked1': data.hyperZone == 1}">
+                            to 140
+                        </div>
+                        <div class="col" style="border: solid 1px; border-bottom: none;" ng-class="{'rowHyperMarked1': data.hyperZone == 1}">
+                            to 90
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="border: solid 1px; border-bottom: none; border-right: none;" ng-class="{'rowHyperMarked2': data.hyperZone == 2}">
+                            Lower hypertension
+                        </div>
+                        <div class="col" style="border: solid 1px; border-bottom: none; border-right: none;" ng-class="{'rowHyperMarked2': data.hyperZone == 2}">
+                            140 – 179
+                        </div>
+                        <div class="col" style="border: solid 1px; border-bottom: none;" ng-class="{'rowHyperMarked2': data.hyperZone == 2}">
+                            90 – 104
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="border: solid 1px; border-bottom: none; border-right: none;" ng-class="{'rowHyperMarked3': data.hyperZone == 3}">
+                            Medium heavy hypertension
+                        </div>
+                        <div class="col" style="border: solid 1px; border-bottom: none; border-right: none;" ng-class="{'rowHyperMarked3': data.hyperZone == 3}">
+                            180 – 199
+                        </div>
+                        <div class="col" style="border: solid 1px; border-bottom: none;" ng-class="{'rowHyperMarked3': data.hyperZone == 3}">
+                            105 – 114
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="border: solid 1px; border-right: none;" ng-class="{'rowHyperMarked4': data.hyperZone == 4}">
+                            Heavy hypertension
+                        </div>
+                        <div class="col" style="border: solid 1px; border-right: none;" ng-class="{'rowHyperMarked4': data.hyperZone == 4}">
+                            200 and more
+                        </div>
+                        <div class="col" style="border: solid 1px" ng-class="{'rowHyperMarked4': data.hyperZone == 4}">
+                            115 and more
+                        </div>
+                    </div>
+                </div>
+            </ion-content>
+        </ion-tab>
 
-        <ion-tab title="Statistics" icon-on="ion-ios-cloud-upload" icon-off="ion-ios-cloud-upload-outline">
+        <ion-tab title="Upload" icon-on="ion-ios-cloud-upload" icon-off="ion-ios-cloud-upload-outline">
             <ion-content style="padding-top: 50px" scroll="true">
                 <div class="row">
                     <div class="col">
