@@ -74,34 +74,30 @@
                         </div>
                     </div>
                 </div>
-
-
-                <!--                <textarea rows="20" cols="50">{{odMLData}}</textarea>
-                                <hr>
-                                {{data.bodyWeightBroadcastData}}
-                                <hr>
-                                {{data.manufacturerIdentificationData}}
-                                <hr>
-                                {{data.productInformationData}}
-                                <hr>
-                                {{data.deviceStateChange}}-->
+<!--                <div class="row">
+                    <div class="col">
+                        <h4>Calculated BMI</h4>
+                    </div>
+                </div>-->
             </ion-content>
         </ion-tab>
 
-        <ion-tab title="Weight Scale" icon-on="ion-arrow-graph-up-right" icon-off="ion-arrow-graph-up-right">
-            <ion-content style="padding-top: 50px" scroll="true">                
+        <ion-tab title="Weight Scale" icon-on="ion-ios-cloud-upload" icon-off="ion-ios-cloud-upload-outline">
+            <ion-content style="padding-top: 50px" scroll="true">
                 <div class="row">
                     <div class="col">
-                        <p>Basic Measurement Data</p>
-                        <p>{{data.basicMeasurementData}}</p>
-                        <p>Advanced Measurement Data</p>
-                        <p>{{data.advancedMeasurementData}}</p>
-                        <p>Error Log</p>
-                        <p>{{data.error}}</p>
-                        <p>{{data.deviceStateChange}}</p>
-                        <p>{{data.deviceStateChange.state}}</p>
+                        <h5>Selected Experiment ID: {{global.selectedExperiment.experimentId}}</h5>
+                        <h5>Selected Profile: {{global.selectedProfile.profileName}}</h5>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col text-center">                        
+                        <button class="button button-block button-positive icon-right ion-ios-cloud-upload-outline" ng-click="uploadMeasurement()">
+                            Upload Measurement to EEGBase
+                        </button>
+                        <ion-spinner icon="lines" ng-if="showUploadSpinner"></ion-spinner>
+                    </div>
+                </div>                
             </ion-content>
         </ion-tab>
     </ion-tabs>

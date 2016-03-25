@@ -68,9 +68,22 @@
             </ion-content>
         </ion-tab>
 
-        <ion-tab title="Bike SD" icon-on="ion-arrow-graph-up-right" icon-off="ion-arrow-graph-up-right">
+        <ion-tab title="Bike SD" icon-on="ion-ios-cloud-upload" icon-off="ion-ios-cloud-upload-outline">
             <ion-content style="padding-top: 50px" scroll="true">
-                <textarea rows="20" cols="50">{{odMLData}}</textarea>
+                <div class="row">
+                    <div class="col">
+                        <h5>Selected Experiment ID: {{global.selectedExperiment.experimentId}}</h5>
+                        <h5>Selected Profile: {{global.selectedProfile.profileName}}</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-center">                        
+                        <button class="button button-block button-positive icon-right ion-ios-cloud-upload-outline" ng-click="uploadMeasurement()">
+                            Upload Measurement to EEGBase
+                        </button>
+                        <ion-spinner icon="lines" ng-if="showUploadSpinner"></ion-spinner>
+                    </div>
+                </div>                
             </ion-content>
         </ion-tab>
         

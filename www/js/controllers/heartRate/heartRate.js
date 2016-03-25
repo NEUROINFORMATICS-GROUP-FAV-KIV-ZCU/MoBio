@@ -1,6 +1,6 @@
 angular.module('mobio.controllers')
 
-        .controller('HeartRateCtrl', function ($scope, $timeout, $compile, odmlHeartRateAnt) {
+        .controller('HeartRateCtrl', function ($scope, $ionicPopup, $compile, odmlHeartRateAnt, experimentCache, experimentService) {
 
 
             $scope.data = {
@@ -9,9 +9,9 @@ angular.module('mobio.controllers')
                 selectedDevice: {},
                 chartData: [{x: 0, y: 50}],
             };
-            
+
             $scope.odMLData = odmlHeartRateAnt.getBasicObject();
-          
+
             function updateData() {
                 var data = [
                     $scope.data.chartData
@@ -103,7 +103,7 @@ angular.module('mobio.controllers')
             };
 
 
-            $scope.buttonListenClick = function () {                
+            $scope.buttonListenClick = function () {
                 $scope.data.chartData = [{x: 0, y: 50}];
                 if ($scope.data.subscribed) {
                     $scope.unsubscribeHR();
@@ -279,6 +279,41 @@ angular.module('mobio.controllers')
                 }
 
                 $compile(document.getElementById("chartId"))($scope);
+            };
+
+
+            $scope.uploadMeasurement = function () {
+                $scope.showUploadSpinner = true;
+                var experiment = experimentCache.getSelectedExperiment();
+                experimentService.uploadOdml($scope.odMLData, experiment.experimentId).then(
+                        function (response) {
+                            $scope.showUploadSpinner = false;
+                            $ionicPopup.show({
+                                template: '',
+                                title: 'Successfully Uploaded',
+                                scope: $scope,
+                                buttons: [
+                                    {
+                                        text: 'OK',
+                                        type: 'button-positive'
+                                    }
+                                ]
+                            });
+                        },
+                        function (error) {
+                            $scope.showUploadSpinner = false;
+                            $ionicPopup.show({
+                                template: '',
+                                title: 'Upload failed. Try again.',
+                                scope: $scope,
+                                buttons: [
+                                    {
+                                        text: 'OK',
+                                        type: 'button-positive'
+                                    }
+                                ]
+                            });
+                        });
             };
 
         });

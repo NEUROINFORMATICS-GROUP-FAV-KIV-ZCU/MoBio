@@ -1,6 +1,6 @@
 angular.module('mobio.controllers')
 
-        .controller('BikeSDCtrl', function ($scope, $timeout, $compile, $ionicPopup, odmlBikeAnt) {
+        .controller('BikeSDCtrl', function ($scope, $ionicPopup, $ionicPopup, odmlBikeAnt, experimentCache, experimentService) {
 
 
             $scope.data = {
@@ -103,7 +103,7 @@ angular.module('mobio.controllers')
                                         $scope.subscribeBike($scope.data.selectedDevice.antDeviceNumber,
                                                 odmlBikeAnt.getWheelCircumference($scope.odMLData).property[0].value.content,
                                                 deviceType);
-                                                
+
                                         $scope.data.subscribed = !$scope.data.subscribed;
                                     }
                                 }
@@ -145,6 +145,40 @@ angular.module('mobio.controllers')
                 } catch (e) {
                     console.log("antplus is not defined");
                 }
+            };
+
+            $scope.uploadMeasurement = function () {
+                $scope.showUploadSpinner = true;
+                var experiment = experimentCache.getSelectedExperiment();
+                experimentService.uploadOdml($scope.odMLData, experiment.experimentId).then(
+                        function (response) {
+                            $scope.showUploadSpinner = false;
+                            $ionicPopup.show({
+                                template: '',
+                                title: 'Successfully Uploaded',
+                                scope: $scope,
+                                buttons: [
+                                    {
+                                        text: 'OK',
+                                        type: 'button-positive'
+                                    }
+                                ]
+                            });
+                        },
+                        function (error) {
+                            $scope.showUploadSpinner = false;
+                            $ionicPopup.show({
+                                template: '',
+                                title: 'Upload failed. Try again.',
+                                scope: $scope,
+                                buttons: [
+                                    {
+                                        text: 'OK',
+                                        type: 'button-positive'
+                                    }
+                                ]
+                            });
+                        });
             };
 
         });

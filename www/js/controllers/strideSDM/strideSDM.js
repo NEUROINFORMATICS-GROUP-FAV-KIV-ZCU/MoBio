@@ -1,6 +1,6 @@
 angular.module('mobio.controllers')
 
-        .controller('StrideSDMCtrl', function ($scope, $timeout, $compile, odmlStrideSDMAnt) {
+        .controller('StrideSDMCtrl', function ($scope, $ionicPopup, odmlStrideSDMAnt, experimentCache, experimentService) {
 
 
             $scope.data = {
@@ -130,6 +130,40 @@ angular.module('mobio.controllers')
                 } catch (e) {
                     console.log("antplus is not defined");
                 }
+            };
+            
+            $scope.uploadMeasurement = function () {
+                $scope.showUploadSpinner = true;
+                var experiment = experimentCache.getSelectedExperiment();
+                experimentService.uploadOdml($scope.odMLData, experiment.experimentId).then(
+                        function (response) {
+                            $scope.showUploadSpinner = false;
+                            $ionicPopup.show({
+                                template: '',
+                                title: 'Successfully Uploaded',
+                                scope: $scope,
+                                buttons: [
+                                    {
+                                        text: 'OK',
+                                        type: 'button-positive'
+                                    }
+                                ]
+                            });
+                        },
+                        function (error) {
+                            $scope.showUploadSpinner = false;
+                            $ionicPopup.show({
+                                template: '',
+                                title: 'Upload failed. Try again.',
+                                scope: $scope,
+                                buttons: [
+                                    {
+                                        text: 'OK',
+                                        type: 'button-positive'
+                                    }
+                                ]
+                            });
+                        });
             };
 
         });

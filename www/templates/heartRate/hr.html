@@ -78,6 +78,25 @@
                 </div>
             </ion-content>
         </ion-tab>
+        
+        <ion-tab title="Upload OdML" icon-on="ion-ios-cloud-upload" icon-off="ion-ios-cloud-upload-outline">
+            <ion-content style="padding-top: 50px" scroll="true">
+                <div class="row">
+                    <div class="col">
+                        <h5>Selected Experiment ID: {{global.selectedExperiment.experimentId}}</h5>
+                        <h5>Selected Profile: {{global.selectedProfile.profileName}}</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-center">                        
+                        <button class="button button-block button-positive icon-right ion-ios-cloud-upload-outline" ng-click="uploadMeasurement()">
+                            Upload Measurement to EEGBase
+                        </button>
+                        <ion-spinner icon="lines" ng-if="showUploadSpinner"></ion-spinner>
+                    </div>
+                </div>                
+            </ion-content>
+        </ion-tab>
 
     </ion-tabs>
     <!--    <ion-content>
