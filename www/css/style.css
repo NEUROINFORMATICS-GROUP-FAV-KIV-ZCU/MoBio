@@ -175,3 +175,7 @@ div.scroll.padding {
 .disabled a{
     background-color: #D9D9D9 !important;
 }
+
+.rowHrMarked {
+    background-color: #2FEF20;
+}

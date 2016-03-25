@@ -1,6 +1,6 @@
 angular.module('mobio.controllers')
 
-        .controller('HeartRateCtrl', function ($scope, $ionicPopup, $compile, odmlHeartRateAnt, experimentCache, experimentService) {
+        .controller('HeartRateCtrl', function ($scope, $ionicPopup, $compile, odmlHeartRateAnt, profileCache, experimentCache, experimentService) {
 
 
             $scope.data = {
@@ -8,6 +8,8 @@ angular.module('mobio.controllers')
                 discovered: [],
                 selectedDevice: {},
                 chartData: [{x: 0, y: 50}],
+                maximumHR: profileCache.getSelectedProfile().gender == 1 ? (220 - profileCache.getSelectedProfile().age) : (226 - profileCache.getSelectedProfile().age),
+                hrZone: 2
             };
 
             $scope.odMLData = odmlHeartRateAnt.getBasicObject();
@@ -49,6 +51,17 @@ angular.module('mobio.controllers')
                 //.on("zoom", zoomed);
             }
 
+            var calculateHRZone = function (hr) {
+                var maximumHR = $scope.data.maximumHR;
+                if (hr >= maximumHR * 0.6 && hr < maximumHR * 0.7) {
+                    $scope.data.hrZone = 1;
+                } else if (hr >= maximumHR * 0.7 && hr < maximumHR * 0.8) {
+                    $scope.data.hrZone = 2;
+                } else if (hr >= maximumHR * 0.8) {
+                    $scope.data.hrZone = 3;
+                }
+            };
+
             $scope.spinner = {
                 show: false
             };
@@ -73,6 +86,7 @@ angular.module('mobio.controllers')
                                                     $scope.data.chartData.push({'x': readResult.heartBeatCount, 'y': readResult.heartRate});
                                                     try {
                                                         updateData();
+                                                        calculateHRZone(readResult.heartRate);
                                                     } catch (e) {
                                                         console.log(e);
                                                     }
@@ -111,6 +125,7 @@ angular.module('mobio.controllers')
                     $scope.odMLData = odmlHeartRateAnt.getBasicObject();
                     $scope.odMLData = odmlHeartRateAnt.setDate($scope.odMLData, moment().format("YYYY-MM-DDTHH:mm:ss.SSSZZ"));
                     $scope.subscribeHR($scope.data.selectedDevice.antDeviceNumber);
+                    $scope.data.hrZone = null;
                 }
                 $scope.data.subscribed = !$scope.data.subscribed;
             };

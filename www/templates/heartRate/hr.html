@@ -39,7 +39,7 @@
                 </div>
             </ion-content>
         </ion-tab>
-        
+
         <ion-tab title="Statistics" icon-on="ion-ios-list-outline" icon-off="ion-ios-list-outline">
             <ion-content class="padding" style="padding-top: 45px">
                 <div class="row">
@@ -76,9 +76,40 @@
                         <div id="chartLiveHR" class="chart"></div>
                     </div>
                 </div>
+                <div style="font-size: 11px">
+                    <div class="row text-center">
+                        <div class="col" style="border: solid 1px; border-bottom: none;">
+                            <strong>Key Target Zones (maximum HR: {{data.maximumHR}})</strong>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="border: solid 1px; border-bottom: none; border-right: none;" ng-class="{'rowHrMarked': data.hrZone == 1}">
+                            (Zone 1) 60-70% of maximum heart rate
+                        </div>
+                        <div class="col" style="border: solid 1px; border-bottom: none;" ng-class="{'rowHrMarked': data.hrZone == 1}">
+                            weight loss, building endurance
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="border: solid 1px; border-bottom: none; border-right: none;" ng-class="{'rowHrMarked': data.hrZone == 2}">
+                            (Zone 2) 70-80% of maximum heart rate 
+                        </div>
+                        <div class="col" style="border: solid 1px; border-bottom: none;" ng-class="{'rowHrMarked': data.hrZone == 2}">
+                            weight management, improving cardio fitness
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="border: solid 1px; border-right: none;" ng-class="{'rowHrMarked': data.hrZone == 3}">
+                            (Zone 3) 80%+ of maximum heart rate 
+                        </div>
+                        <div class="col" style="border: solid 1px" ng-class="{'rowHrMarked': data.hrZone == 3}">
+                            interval workouts
+                        </div>
+                    </div>
+                </div>
             </ion-content>
         </ion-tab>
-        
+
         <ion-tab title="Upload OdML" icon-on="ion-ios-cloud-upload" icon-off="ion-ios-cloud-upload-outline">
             <ion-content style="padding-top: 50px" scroll="true">
                 <div class="row">
