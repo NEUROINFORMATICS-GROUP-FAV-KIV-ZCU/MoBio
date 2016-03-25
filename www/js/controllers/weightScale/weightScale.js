@@ -14,7 +14,30 @@ angular.module('mobio.controllers')
                 productInformationData: {},
                 bodyWeightBroadcastData: {},
                 //
-                error: {}
+                error: {},
+                bmi: {
+                    value: null,
+                    text: ""
+                }
+            };
+            
+            var calculateBmi = function (weight, height) {               
+                if (weight > 0 && height > 0) {
+                    var finalBmi = weight / (height / 100 * height / 100)
+                    $scope.data.bmi.value = finalBmi;
+                    if (finalBmi < 18.5) {
+                        $scope.data.bmi.text = "you are too thin.";
+                    }
+                    if (finalBmi > 18.5 && finalBmi < 25) {
+                        $scope.data.bmi.text = "you are healthy.";
+                    }
+                    if (finalBmi > 25) {
+                        $scope.data.bmi.text = "you have overweight.";
+                    }
+                }
+                else {
+                    $scope.data.bmi.text = "the input values are not correct.";
+                }
             };
 
             $scope.odMLData = odmlWGTAnt.getBasicObject();
@@ -46,6 +69,9 @@ angular.module('mobio.controllers')
                                             } else if (readResult.event == "bodyWeightBroadcastData") {
                                                 $scope.odMLData = odmlWGTAnt.setBodyWeightBroadcast($scope.odMLData, readResult);
                                                 $scope.data.bodyWeightBroadcastData = readResult;
+                                                if(readResult.bodyWeightStatus == "VALID") {
+                                                    calculateBmi(readResult.bodyWeight, profileCache.getSelectedProfile().height);
+                                                }
                                             } else if (readResult.event == "basicMeasurementData") {
                                                 $scope.odMLData = odmlWGTAnt.setBasicMeasurement($scope.odMLData, readResult);
                                                 $scope.data.basicMeasurementData = readResult;
@@ -162,7 +188,7 @@ angular.module('mobio.controllers')
                                 ]
                             });
                         });
-            };
+            };            
 
         });
 
