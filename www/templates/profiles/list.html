@@ -1,4 +1,4 @@
-<ion-view view-title="Profiles" cache-view="true">
+<ion-view view-title="Stored Profiles" cache-view="true">
     <ion-nav-bar class="bar-positive" align-title="center">
 
         <ion-nav-buttons side="left">
@@ -14,7 +14,6 @@
     <ion-content scroll="true">
         <div class="row">                    
             <div class="col">
-                <h3>Stored Profiles</h3>
                 <button class="button button-full button-positive button-outline button-small" ng-repeat="profile in global.profileList" ng-click="setSelectedProfile(profile)">
                     {{profile.profileName}}
                 </button>
@@ -22,6 +21,9 @@
         </div>
     </ion-content>
     <div class="bar bar-footer bar-positive">
-        Selected: {{getSelectedProfile().profileName}}
-    </div>;
+        <div class="title">Selected: {{getSelectedProfile().profileName}}</div>
+        
+        <a class="button button-icon button-clear ion-edit button-small" ng-href="#/profiles/edit/{{getSelectedProfile().id}}">
+            </a>
+    </div>
 </ion-view>

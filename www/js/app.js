@@ -160,6 +160,16 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
                             }
                         }
                     })
+                    
+                    .state('profiles.edit', {
+                        url: '/edit/:id',
+                        views: {
+                            'menuContent': {
+                                templateUrl: 'templates/profiles/edit.html',
+                                controller: 'ProfilesEditCtrl'
+                            }
+                        }
+                    })
 
                     .state('profiles.list', {
                         url: '/list',

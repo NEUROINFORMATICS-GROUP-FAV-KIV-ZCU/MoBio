@@ -4,6 +4,7 @@ angular.module('mobio.controllers')
 
             $scope.data = {
                 newProfile: {
+                    id: null,
                     profileName: "",
                     email: "",
                     name: "",
@@ -25,8 +26,10 @@ angular.module('mobio.controllers')
 
                 confirmPopup.then(function (res) {
                     if (res) {
+                        $scope.data.newProfile.id = new Date().getTime();
                         profileCache.addProfile($scope.data.newProfile);
                         $scope.data.newProfile = {
+                            id: null,
                             profileName: "",
                             email: "",
                             name: "",

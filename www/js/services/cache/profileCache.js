@@ -18,10 +18,28 @@ angular.module('mobio.cache')
                 },
                 getProfileById: function (id) {
                     var profileCache = this.getProfiles();
-                    if (typeof profileCache.profiles[id] == 'undefined') {
+                    
+                    for(var i = 0; i < profileCache.profiles.length; i++) {
+                        if(profileCache.profiles[i].id == id) {
+                            return profileCache.profiles[i];
+                        }
+                    }                    
+                    return null;
+                },
+                updateProfile: function (updatedProfile) {
+                    if (!this.cacheAvailable()) {
                         return false;
                     }
-                    return profileCache.profiles[id];
+                    var profileCache = this.getProfiles();
+                    
+                    for(var i = 0; i < profileCache.profiles.length; i++) {
+                        if(profileCache.profiles[i].id == updatedProfile.id) {
+                            profileCache.profiles[i] = updatedProfile;
+                            window.localStorage.setItem("profileCache", JSON.stringify(profileCache));
+                            return true;
+                        }
+                    }                                        
+                    return false;
                 },
                 addProfile: function (newProfile) {
                     if (!this.cacheAvailable()) {
