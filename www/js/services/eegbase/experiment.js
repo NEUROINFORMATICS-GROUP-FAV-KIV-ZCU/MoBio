@@ -13,7 +13,7 @@ angular.module('mobio.eegbase')
                     }, function (err) {
                         console.log("error getMyExperiments");
                         console.log(err);
-                        deferred.resolve(err);
+                        deferred.reject(err);
                     });
                     return deferred.promise;
                 },
@@ -29,7 +29,7 @@ angular.module('mobio.eegbase')
                     }, function (err) {
                         console.log("error addOdmlMobio");
                         console.log(err);
-                        deferred.resolve(err);
+                        deferred.reject(err);
                     });
 
                     return events;
