@@ -3,7 +3,7 @@ angular.module('mobio.controllers')
         .controller('AppCtrl', function ($scope, $rootScope, $ionicModal, $timeout, profileCache, experimentCache) {
             $rootScope.global = {
                 selectedProfile: profileCache.getSelectedProfile(),
-                selectedExperiment: null,
+                selectedExperiment: experimentCache.getSelectedExperiment(),
                 profileList: []
             };
             
