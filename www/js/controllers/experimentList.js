@@ -23,6 +23,7 @@ angular.module('mobio.controllers')
             $scope.syncExperiments = function () {
                 $scope.showLoadingSpinner = true;
                 experimentService.getMyExperiments().then(function (response) {
+                    $scope.showLoadingSpinner = false;
                     experimentCache.setExperiments(response.data.experimentDataList.experiments);
                     $rootScope.global.experimentList = experimentCache.getExperiments().experiments;
                     $rootScope.$emit('experiment-added');
