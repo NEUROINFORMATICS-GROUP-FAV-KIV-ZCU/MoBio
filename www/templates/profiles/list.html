@@ -23,7 +23,7 @@
     <div class="bar bar-footer bar-positive">
         <div class="title">Selected: {{getSelectedProfile().profileName}}</div>
         
-        <a class="button button-icon button-clear ion-edit button-small" ng-href="#/profiles/edit/{{getSelectedProfile().id}}">
+        <a class="button button-icon button-clear ion-edit button-small" ng-href="#/profiles/edit/{{getSelectedProfile().id}}" ng-disabled="!getSelectedProfile()">
             </a>
     </div>
 </ion-view>
