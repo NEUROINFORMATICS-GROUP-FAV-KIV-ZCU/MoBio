@@ -3,7 +3,7 @@ angular.module('mobio.controllers')
         .controller('SettingsCtrl', function ($scope, $ionicPopup, settingsCache) {
 
             $scope.data = {
-                restUrl: settingsCache.getSettings().restUrl ? settingsCache.getSettings().restUrl : 'http://192.168.0.6:8080'
+                restUrl: settingsCache.getSettings().restUrl// ? settingsCache.getSettings().restUrl : 'http://192.168.0.6:8080'
             };
 
 
