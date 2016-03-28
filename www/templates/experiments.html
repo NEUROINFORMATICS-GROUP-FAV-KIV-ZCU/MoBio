@@ -14,7 +14,12 @@
     </ion-nav-bar>
     <ion-content scroll="true" class="has-header has-footer">
         <div class="row">                    
-            <div class="col">
+            <div class="col text-center">
+                <ion-spinner icon="lines" ng-if="showLoadingSpinner"></ion-spinner>
+            </div>
+        </div>
+        <div class="row">                    
+            <div class="col">                
                 <button class="button button-full button-calm button-outline button-small" ng-repeat="experiment in global.experimentList" ng-click="setSelectedExperiment(experiment)">
                     <h2>{{experiment.experimentId}}</h2>
                     <p>{{experiment.startTime| date:'medium'}}</p>
