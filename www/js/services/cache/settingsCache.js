@@ -10,6 +10,11 @@ angular.module('mobio.cache')
                     if (!this.cacheAvailable()) {
                         return false;
                     }
+                    
+                    if(!JSON.parse(window.localStorage.getItem("settingsCache"))) {
+                        window.localStorage.setItem("settingsCache", JSON.stringify({}));
+                    }
+                    
                     return JSON.parse(window.localStorage.getItem("settingsCache"));
                 },                
                 updateSettings: function (name, value) {
