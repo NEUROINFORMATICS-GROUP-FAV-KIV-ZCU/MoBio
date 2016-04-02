@@ -1,12 +1,13 @@
 angular.module('mobio.eegbase')
 
-        .factory('userService', function ($http, $q, settingsCache) {
+        .factory('userService', function ($http, $q, $timeout, settingsCache) {
 
             return {
                 login: function (username, password) {
                     var deferred = $q.defer();
                     $http.get(settingsCache.getSettings().restUrl + "/rest/user/login", {
-                        headers: {
+                        timeout: deferred.promise,
+                        headers: {                            
                             'Authorization': "Basic " + btoa(username + ":" + password)
                         }
                     }).then(function (response) {
@@ -14,6 +15,11 @@ angular.module('mobio.eegbase')
                     }, function (err) {
                         deferred.reject(err);
                     });
+
+                    $timeout(function () {
+                        deferred.resolve('timeout');
+                    }, 5000);
+
                     return deferred.promise;
                 }
             };
