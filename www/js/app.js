@@ -1,5 +1,5 @@
 
-angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.directives', 'mobio.odML', 'mobio.cache', 'mobio.eegbase', 'pascalprecht.translate', 'auth0', 'angular-storage', 'angular-jwt'])
+angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.directives', 'mobio.odML', 'mobio.cache', 'mobio.eegbase', 'pascalprecht.translate'])
 
         .run(function ($ionicPlatform, localCache) {
             $ionicPlatform.ready(function () {
@@ -25,33 +25,7 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
             });
         })
 
-        .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, $translateProvider, i18n_en, i18n_cs, authProvider, $httpProvider, jwtInterceptorProvider) {
-
-            authProvider.init({
-                domain: 'mobio.eu.auth0.com',
-                clientID: '1AwrQrmRrTIoD7MgzFotZOf9MNlGz22A',
-                loginState: 'home' // This is the name of the state where you'll show the login, which is defined above...
-            });
-
-            jwtInterceptorProvider.tokenGetter = function (store, jwtHelper, auth) {
-                var idToken = store.get('token');
-                var refreshToken = store.get('refreshToken');
-                // If no token return null
-                if (!idToken || !refreshToken) {
-                    return null;
-                }
-                // If token is expired, get a new one
-                if (jwtHelper.isTokenExpired(idToken)) {
-                    return auth.refreshIdToken(refreshToken).then(function (idToken) {
-                        store.set('token', idToken);
-                        return idToken;
-                    });
-                } else {
-                    return idToken;
-                }
-            };
-
-            $httpProvider.interceptors.push('jwtInterceptor');
+        .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, $translateProvider, i18n_en, i18n_cs, $httpProvider) {
 
             $ionicConfigProvider.tabs.position('bottom');
             $ionicConfigProvider.backButton.text('').icon('ion-ios-arrow-back');

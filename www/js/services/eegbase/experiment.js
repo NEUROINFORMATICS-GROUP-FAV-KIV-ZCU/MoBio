@@ -3,36 +3,36 @@ angular.module('mobio.eegbase')
         .factory('experimentService', function ($http, $q, settingsCache) {
 
             return {
-                
                 getMyExperiments: function () {
+                    var settings = settingsCache.getSettings();
                     var deferred = $q.defer();
-                    $http.get(settingsCache.getSettings().restUrl + "/rest/experiments/mineMobio").then(function (response) {
-                        console.log("OK getMyExperiments");
-                        console.log(response);
+                    $http.get(settings.restUrl + "/rest/experiments/mine", {
+                        headers: {
+                            'Authorization': "Basic " + btoa(settings.username + ":" + settings.password)
+                        }
+                    }).then(function (response) {
                         deferred.resolve(response);
                     }, function (err) {
-                        console.log("error getMyExperiments");
-                        console.log(err);
                         deferred.reject(err);
                     });
                     return deferred.promise;
                 },
-                
                 uploadOdml: function (odML, experimentId) {
+                    var settings = settingsCache.getSettings();
                     var deferred = $q.defer();
-                    var events = deferred.promise;
-
-                    $http.post(settingsCache.getSettings().restUrl + "/rest/experiments/addOdmlMobio/" + experimentId, odML,  {headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}}).then(function (response) {
-                        console.log("OK addOdmlMobio");
-                        console.log(response);
+                    $http.post(settings.restUrl + "/rest/experiments/addOdmlMobio/" + experimentId, odML, {
+                        headers: {
+                            'Authorization': "Basic " + btoa(settings.username + ":" + settings.password),
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        }
+                    }).then(function (response) {
                         deferred.resolve(response);
                     }, function (err) {
-                        console.log("error addOdmlMobio");
-                        console.log(err);
                         deferred.reject(err);
                     });
 
-                    return events;
+                    return deferred.promise;
                 }
 
 
