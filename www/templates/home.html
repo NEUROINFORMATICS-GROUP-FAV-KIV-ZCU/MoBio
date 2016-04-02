@@ -10,7 +10,7 @@
                 <!--                <a class="button button-block button-balanced button-small" ng-href="#/profiles/new" ng-disabled="!auth.profile.nickname">
                                     {{'CREATE_PROFILE'| translate}}
                                 </a>   -->
-                <a class="button button-block button-calm button-small" ng-click="login()">
+                <a class="button button-block button-calm button-small" ng-click="login()" ng-disabled="data.disableLogin">
                     {{'LOGIN'| translate}}
                 </a>
                 <a class="button button-block button-positive button-small" ng-href="#/profiles/list" ng-disabled="!data.userInfo.name">

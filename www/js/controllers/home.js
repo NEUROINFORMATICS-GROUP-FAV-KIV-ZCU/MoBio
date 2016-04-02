@@ -5,18 +5,43 @@ angular.module('mobio.controllers')
             $scope.data = {
                 userInfo: settingsCache.getSettings().userInfo,
                 username: settingsCache.getSettings().username,
-                password: settingsCache.getSettings().password
+                password: settingsCache.getSettings().password,
+                disableLogin: false
+            };
+
+            var errorLoginCallback = function () {
+                settingsCache.updateSettings("userInfo", null);
+                settingsCache.updateSettings("password", "");
+                $scope.data.userInfo = null;
+                $scope.data.password = "";
+                $ionicPopup.show({
+                    template: '',
+                    title: 'Login Failed. Try again.',
+                    scope: $scope,
+                    buttons: [
+                        {
+                            text: 'OK',
+                            type: 'button-assertive'
+                        }
+                    ]
+                });
             };
 
             $scope.login = function () {
-
+                $scope.data.disableLogin = true;
                 $ionicPopup.show({
                     template: 'Username:<input type="text" ng-model="data.username">Password:<input type="password" ng-model="data.password">',
                     title: 'EEGBase Login',
                     subTitle: 'Please enter username and password',
                     scope: $scope,
                     buttons: [
-                        {text: 'Cancel'},
+                        {
+                            text: 'Cancel',
+                            onTap: function (e) {
+                                $scope.data.disableLogin = false;
+                                return true;
+                            }
+                        },
                         {
                             text: '<b>Login</b>',
                             type: 'button-calm',
@@ -27,27 +52,19 @@ angular.module('mobio.controllers')
                                 } else {
                                     userService.login($scope.data.username, $scope.data.password).then(
                                             function (response) {
-                                                $scope.data.userInfo = response.data.userInfo;
-                                                settingsCache.updateSettings("userInfo", $scope.data.userInfo);
-                                                settingsCache.updateSettings("username", $scope.data.username);
-                                                settingsCache.updateSettings("password", $scope.data.password);
+                                                if (response == 'timeout') {
+                                                    errorLoginCallback();
+                                                } else {
+                                                    $scope.data.userInfo = response.data.userInfo;
+                                                    settingsCache.updateSettings("userInfo", $scope.data.userInfo);
+                                                    settingsCache.updateSettings("username", $scope.data.username);
+                                                    settingsCache.updateSettings("password", $scope.data.password);
+                                                }
+                                                $scope.data.disableLogin = false;
                                             },
                                             function (err) {
-                                                settingsCache.updateSettings("userInfo", null);
-                                                settingsCache.updateSettings("password", "");
-                                                $scope.data.userInfo = null;
-                                                $scope.data.password = "";
-                                                $ionicPopup.show({
-                                                    template: '',
-                                                    title: 'Login Failed. Try again.',
-                                                    scope: $scope,
-                                                    buttons: [
-                                                        {
-                                                            text: 'OK',
-                                                            type: 'button-assertive'
-                                                        }
-                                                    ]
-                                                });
+                                                errorLoginCallback();
+                                                $scope.data.disableLogin = false;
                                             });
                                     return true;
                                 }
