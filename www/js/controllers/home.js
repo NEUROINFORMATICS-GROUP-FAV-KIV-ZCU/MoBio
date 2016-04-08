@@ -1,6 +1,6 @@
 angular.module('mobio.controllers')
 
-        .controller('HomeCtrl', function ($scope, $ionicPopup, userService, settingsCache) {
+        .controller('HomeCtrl', function ($scope, $rootScope, $ionicPopup, userService, settingsCache, profileCache) {
 
             $scope.data = {
                 userInfo: settingsCache.getSettings().userInfo,
@@ -59,6 +59,23 @@ angular.module('mobio.controllers')
                                                     settingsCache.updateSettings("userInfo", $scope.data.userInfo);
                                                     settingsCache.updateSettings("username", $scope.data.username);
                                                     settingsCache.updateSettings("password", $scope.data.password);
+
+                                                    if (profileCache.getProfileByName($scope.data.username) == null) {
+                                                        profileCache.addProfile({
+                                                            id: new Date().getTime(),
+                                                            profileName: $scope.data.username,
+                                                            email: "",
+                                                            name: response.data.userInfo.name,
+                                                            surname: response.data.userInfo.surname,
+                                                            age: null,
+                                                            gender: 1,
+                                                            height: null,
+                                                            activityLevel: 0,
+                                                            lifetimeAthlete: false
+                                                        });
+                                                        $rootScope.$emit('profile-added');
+                                                    }
+
                                                 }
                                                 $scope.data.disableLogin = false;
                                             },

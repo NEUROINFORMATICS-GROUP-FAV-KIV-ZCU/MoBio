@@ -26,6 +26,20 @@ angular.module('mobio.cache')
                     }                    
                     return null;
                 },
+                getProfileByName: function (profileName) {
+                    var profileCache = this.getProfiles();
+                    
+                    if (!profileCache.profiles) {
+                        return null;
+                    }
+                    
+                    for(var i = 0; i < profileCache.profiles.length; i++) {
+                        if(profileCache.profiles[i].profileName == profileName) {
+                            return profileCache.profiles[i];
+                        }
+                    }                    
+                    return null;
+                },
                 updateProfile: function (updatedProfile) {
                     if (!this.cacheAvailable()) {
                         return false;

@@ -195,3 +195,7 @@ div.scroll.padding {
 .rowHyperMarked4 {
     background-color: #FF0E0E;
 }
+
+.bar .title {
+    font-size: 12px !important;
+}
