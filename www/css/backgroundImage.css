@@ -5,6 +5,11 @@
         background-size: cover;*/
 }
 
+.slider-slide .demoImg {
+    width: 65%;
+    border: solid 1px #ccc;
+}
+
 
 /* ----------- HTC One ----------- */
 /* Portrait */

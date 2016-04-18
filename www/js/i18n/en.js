@@ -41,5 +41,17 @@ angular.module('mobio.config')
             'CREATE_PROFILE': 'Create Profile',
             'SELECT_PROFILE': 'Select Profile',
             'SETTINGS': 'Settings',
-            'LOGIN': 'Login'
+            'LOGIN': 'Login',
+            'APP_SAMPLE': 'Tour: See the app',
+            'DEMO_HOME': 'Welcome to MoBio - the mobile platform for collecting data from biosensors. Before you begin using the app, please follow the next few slides.',
+            'DEMO_SETTINGS': 'In Settings setup the URL to the EEGBase server.',
+            'DEMO_LOGIN': 'Login with the credentials used in EEGBase Portal.',
+            'DEMO_PROFILES': 'Once you are logged in you are able to browse and update the user profiles. You must select the profile by tapping on it.',
+            'DEMO_EXPERIMENTS': 'Refresh My Experiments screen - the button in the top right corner. You should see your predefined exeriments from EEGBase. You must select the experiment by tapping on it.',
+            'DEMO_ACTIVITIES': 'Once you selected the profile and the experiment the activites are opened for you. Choose the activity by tapping on it.',
+            'DEMO_SENSOR': 'Search for the sensor. If there is any sensor advertising you will see it in the list. Stop the search and select the sensor. You can now tap Listen.',
+            'DEMO_TRACKING': 'odML Data Checks tab displays the progress of loading the data.',
+            'DEMO_ANALYSIS': 'There is a simple online data analysis available for some sensors.',
+            'DEMO_UPLOAD': 'If you are happy with the collected data you can upload it to EEGBase. Please note the ID of the selected experiment to which the data will be assigned.',
+            'DEMO_END': 'Thank you for taking the tour. You can now proceed to Home screen.'
         });

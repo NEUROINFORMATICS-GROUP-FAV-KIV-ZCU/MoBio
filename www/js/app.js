@@ -50,6 +50,11 @@ angular.module('mobio', ['ionic', 'mobio.controllers', 'mobio.config', 'mobio.di
                         templateUrl: 'templates/settings.html',
                         controller: 'SettingsCtrl'
                     })
+                    
+                    .state('demoTour', {
+                        url: '/demo-tour',
+                        templateUrl: 'templates/demoTour.html'
+                    })
 
                     .state('app', {
                         url: '/app',
