@@ -13,7 +13,7 @@ angular.module('mobio.cache')
                         for (var i = 0; i < cachesList.length; i++) {
                             if (window.localStorage.getItem(cachesList[i]) == null) { // initialize cache storage
                                 window.localStorage.setItem(cachesList[i], JSON.stringify({}));
-                                window.localStorage.setItem("settingsCache", JSON.stringify({restUrl: "http://192.168.0.6:8080"}));
+                                window.localStorage.setItem("settingsCache", JSON.stringify({restUrl: "https://eegdatabase.kiv.zcu.cz"}));
                             }
                         }                                                                                             
                         return true;
