@@ -48,7 +48,7 @@ Run the following commands
 
 To sign the unsigned APK, run the `jarsigner` tool which is also included in the JDK:
 You can use the signing key provided in this repository if you are member of Neuroinformatics group.
-The password is required. You need to contact the [Author](mailto:lubosmuller@seznam.cz)
+The password is required. You need to contact the [Author](mailto:lubosmuller@seznam.cz).
 
 * `jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore mobio-release-key.keystore android-armv7-release-unsigned.apk mobio`
 
