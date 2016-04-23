@@ -19,7 +19,7 @@ Please refer to [Ionic documentation](http://ionicframework.com/docs/guide/insta
 
 ### Node.js
 
-Node.js verion 0.12.2 is required for hooks.
+Node.js verion 0.12.2 is required for the used node modules.
 
 * Download and install [Node.js 0.12.2](https://nodejs.org/download/release/v0.12.2/)
 
@@ -40,3 +40,20 @@ Run the following commands
 
 ### Building the app for release
 
+1. Run the command `ionic build --release android`
+2. The APK is located in `[PROJECT_DIR]\platforms\android\build\outputs\apk`
+3. Use APK for the required architecture, e.g. `android-armv7-release-unsigned.apk`
+
+### Signing the APK
+
+To sign the unsigned APK, run the `jarsigner` tool which is also included in the JDK:
+You can use the signing key provided in this repository if you are member of Neuroinformatics group.
+The password is required. You need to contact the [Author](mailto:lubosmuller@seznam.cz)
+
+* `jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore mobio-release-key.keystore android-armv7-release-unsigned.apk mobio`
+
+Run the zip align tool to optimize the APK. The `zipalign` tool can be found in `/path/to/Android/sdk/build-tools/VERSION/zipalign`
+
+* `zipalign -v 4 android-armv7-release-unsigned.apk MoBio.apk`
+
+Now you have your final release binary called **MoBio.apk**.
